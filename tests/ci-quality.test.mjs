@@ -23,7 +23,7 @@ test("the repository test runner propagates a deliberate failure", async () => {
       fixture,
       'import test from "node:test";\nimport assert from "node:assert/strict";\ntest("fails",()=>assert.fail("expected"));\n',
     );
-    const result = spawnSync(process.execPath, ["--test", fixture], { encoding: "utf8" });
+    const env = { ...process.env };\n    delete env.NODE_TEST_CONTEXT;\n    const result = spawnSync(process.execPath, ["--test", fixture], { encoding: "utf8", env });
     assert.notEqual(result.status, 0);
     assert.match(result.stderr + result.stdout, /fail/);
   } finally {
