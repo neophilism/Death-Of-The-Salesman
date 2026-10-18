@@ -78,9 +78,7 @@
       "verification": [
         "Fresh clean checkout builds and starts with no external accounts or model keys."
       ],
-      "contributingPrs": [
-        4
-      ],
+      "contributingPrs": [],
       "priorEvidencePrs": [],
       "externalDependencies": [],
       "externalPrerequisites": []
