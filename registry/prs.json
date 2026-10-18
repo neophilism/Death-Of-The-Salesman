@@ -111,7 +111,9 @@
       "id": "DOTS-005",
       "title": "Validated environment and disabled-by-default integrations",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        7
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
