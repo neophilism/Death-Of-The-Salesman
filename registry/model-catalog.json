@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-18",
+  "note": "Candidate registry only; license, endpoint, pricing, hardware, model snapshot, privacy eligibility, benchmarks and terms must be rechecked at activation. Do not download weights into Git. Proprietary model IDs discovered from provisioned account.",
+  "candidates": [
+    {
+      "id": "openai",
+      "provider": "openai",
+      "type": "proprietary-api",
+      "protocol": "responses",
+      "modelId": null,
+      "enabled": false
+    },
+    {
+      "id": "claude",
+      "provider": "anthropic",
+      "type": "proprietary-api",
+      "protocol": "messages",
+      "modelId": null,
+      "enabled": false
+    },
+    {
+      "id": "grok",
+      "provider": "xai",
+      "type": "proprietary-api",
+      "protocol": "provider-supported",
+      "modelId": null,
+      "enabled": false
+    },
+    {
+      "id": "mimo-v2-6-pro",
+      "provider": "xiaomi-mimo",
+      "type": "open-weight",
+      "source": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL",
+      "revision": null,
+      "enabled": false,
+      "weightsInRepository": false
+    },
+    {
+      "id": "glm-5-3",
+      "provider": "zai",
+      "type": "open-weight",
+      "source": "https://huggingface.co/zai-org/GLM-5.3",
+      "revision": null,
+      "enabled": false,
+      "weightsInRepository": false
+    },
+    {
+      "id": "kimi-k3",
+      "provider": "moonshotai",
+      "type": "open-weight",
+      "source": "https://huggingface.co/moonshotai/Kimi-K3",
+      "revision": null,
+      "enabled": false,
+      "weightsInRepository": false
+    }
+  ]
+}
