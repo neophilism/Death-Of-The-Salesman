@@ -23,6 +23,10 @@ jobs:
           node-version: 24.19.0
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm scan:secrets
+      - run: pnpm test:failure-contract
+      - run: pnpm audit:dependencies
       - run: pnpm test
       - run: pnpm build
       - name: Smoke test independently runnable services
