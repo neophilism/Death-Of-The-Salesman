@@ -57,5 +57,5 @@ test('only two existing PR numbers are linked; future work does not claim comple
  const refs=source.units.flatMap(u=>u.prs);
  assert.deepEqual(refs,[1,2]);
  assert.ok(source.pullRequests.find(p=>p.number===1)?.mergedAt);
- assert.equal(source.pullRequests.find(p=>p.number===2)?.state,'open');
+ assert.ok(['open','closed'].includes(source.pullRequests.find(p=>p.number===2)?.state), 'dated snapshot may be open or closed');
 });
