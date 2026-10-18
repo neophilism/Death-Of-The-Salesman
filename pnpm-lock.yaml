@@ -40,6 +40,8 @@ importers:
         specifier: workspace:*
         version: link:../domain
 
+  packages/config: {}
+
   packages/domain: {}
 
   packages/worker:
