@@ -1,8 +1,17 @@
 {
   "files": [],
   "references": [
-    { "path": "packages/domain" },
-    { "path": "packages/api" },
-    { "path": "packages/worker" }
+    {
+      "path": "packages/domain"
+    },
+    {
+      "path": "packages/config"
+    },
+    {
+      "path": "packages/api"
+    },
+    {
+      "path": "packages/worker"
+    }
   ]
 }
