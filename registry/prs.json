@@ -63,7 +63,9 @@
       "id": "DOTS-003",
       "title": "TypeScript monorepo and application shell",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        4
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [

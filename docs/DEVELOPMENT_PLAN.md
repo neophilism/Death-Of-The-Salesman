@@ -77,7 +77,7 @@
 
 **Dependencies:** DOTS-002  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #4
 
 ### DOTS-004 — CI quality, secret and dependency checks
 

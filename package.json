@@ -1,0 +1,26 @@
+{
+  "name": "death-of-the-salesman",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "pnpm typecheck && pnpm --filter @dots/web build",
+    "dev": "pnpm --filter @dots/web dev",
+    "start": "pnpm --filter @dots/web start",
+    "start:api": "pnpm --filter @dots/api start",
+    "start:worker": "pnpm --filter @dots/worker start",
+    "test": "pnpm typecheck && node --test tests/*.test.mjs",
+    "typecheck": "tsc --build"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "typescript": "5.9.3"
+  }
+}
