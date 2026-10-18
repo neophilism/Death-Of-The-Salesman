@@ -17,9 +17,11 @@ An API-native, multi-model, **visual-first sales and fundraising command center*
 ```sh
 node scripts/validate-pr-registry.mjs
 node --test tests/registry.test.mjs
+pnpm check
+pnpm audit --prod --audit-level=high
 ```
 
-The roadmap CI is dependency-free and does not call paid APIs, send messages or start inference servers. Later application development will add full build, tests, security scans, E2E and deployment checks.
+The canonical-plan check remains dependency-free. Application CI performs lint, strict typechecking, unit tests, a production build, tracked-file credential scanning and production dependency auditing. These checks do not call paid APIs, send messages or start inference servers.
 
 ## Operating guardrails
 

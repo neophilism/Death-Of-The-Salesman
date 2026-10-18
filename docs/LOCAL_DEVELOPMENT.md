@@ -6,8 +6,8 @@ accounts, a database, model calls, outbound messages, or paid resources.
 ```sh
 corepack enable
 pnpm install --frozen-lockfile
-pnpm test
-pnpm build
+pnpm check
+pnpm audit --prod --audit-level=high
 pnpm dev
 ```
 
@@ -16,3 +16,12 @@ The standalone API can be built with the root build and started with `pnpm start
 only to `127.0.0.1:3001` by default and exposes `/health`. `pnpm start:worker` confirms the
 separate worker boundary while remaining disabled. Later plan units own configuration, database,
 authentication, domain contracts, queues, and production deployment.
+
+## Quality and security gates
+
+`pnpm check` runs lint, strict typechecking, unit tests, the production build, and the
+repository-local credential scan. The scanner reads only tracked files and makes no
+network requests. `pnpm audit --prod --audit-level=high` reports production dependency
+advisories from the package registry; CI retains its JSON report as an artifact and fails
+on high or critical findings. No check requires application credentials or enables an
+integration.
