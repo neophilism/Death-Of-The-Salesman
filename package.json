@@ -1,0 +1,13 @@
+{
+  "name": "death-of-the-salesman",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "check": "node --test tests/*.test.mjs",
+    "build": "node scripts/verify-workspaces.mjs",
+    "start": "node apps/api/server.mjs"
+  },
+  "engines": {"node": ">=22"}
+}
