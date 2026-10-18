@@ -1,0 +1,28 @@
+# Local development and secret material
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+node_modules/
+.next/
+dist/
+coverage/
+.cache/
+.DS_Store
+
+# Models and inference weights must never be committed
+*.safetensors
+*.safetensors.index.json
+*.gguf
+*.ggml
+*.ckpt
+*.pt
+*.pth
+*.onnx
+pytorch_model*.bin
+model_weights/
+weights/
+checkpoints/
+hf-cache/
+huggingface-cache/

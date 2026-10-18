@@ -1,0 +1,3835 @@
+{
+  "repository": "neophilism/Death-Of-The-Salesman",
+  "title": "Death Of The Salesman",
+  "planVerified": true,
+  "plannedPrCount": 160,
+  "sourceFiles": [
+    "docs/TECHNICAL_ARCHITECTURE.md",
+    "docs/PRODUCT_INTERACTION_DESIGN.md",
+    "docs/DEVELOPMENT_PLAN.md",
+    "AGENTS.md"
+  ],
+  "schemaVersion": 1,
+  "roadmapVersion": 1,
+  "observedAt": "2026-10-18T16:53:39Z",
+  "units": [
+    {
+      "id": "DOTS-001",
+      "title": "Architecture and interaction baseline",
+      "origin": "original",
+      "prs": [
+        1
+      ],
+      "phase": "F0",
+      "priority": "P0",
+      "dependsOn": [],
+      "scope": [
+        "Preserve approved system boundaries, visual specification, character roster and six-model catalog already merged in PR #1."
+      ],
+      "acceptanceCriteria": "The baseline files exist on main and PR #1 is verifiably merged.",
+      "verification": [
+        "The baseline files exist on main and PR #1 is verifiably merged."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-002",
+      "title": "Canonical plan, contributor protocol and validation",
+      "origin": "original",
+      "prs": [
+        2
+      ],
+      "phase": "F0",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-001"
+      ],
+      "scope": [
+        "Publish a single parseable PR registry, readable plan, AGENTS.md, graph validator and no-cost CI gate."
+      ],
+      "acceptanceCriteria": "Counts equal actual units; PR mappings are real; unresolved prerequisites block only gated units; DAG/schema tests pass.",
+      "verification": [
+        "Counts equal actual units; PR mappings are real; unresolved prerequisites block only gated units; DAG/schema tests pass."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-003",
+      "title": "TypeScript monorepo and application shell",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-002"
+      ],
+      "scope": [
+        "Initialize Next.js/React app, separate API and worker packages, strict TypeScript, package lock and run scripts."
+      ],
+      "acceptanceCriteria": "Fresh clean checkout builds and starts with no external accounts or model keys.",
+      "verification": [
+        "Fresh clean checkout builds and starts with no external accounts or model keys."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-004",
+      "title": "CI quality, secret and dependency checks",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-003"
+      ],
+      "scope": [
+        "Run static lint, typechecks, unit tests, build, secret scan and package vulnerability reporting in GitHub Actions."
+      ],
+      "acceptanceCriteria": "Deliberately failing test blocks merge; tests incur no paid calls and leak no credentials.",
+      "verification": [
+        "Deliberately failing test blocks merge; tests incur no paid calls and leak no credentials."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-005",
+      "title": "Validated environment and disabled-by-default integrations",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-003"
+      ],
+      "scope": [
+        "Typed runtime configuration with example .env templates, distinct test/dev/stage/prod and zero-paid-spend defaults."
+      ],
+      "acceptanceCriteria": "Missing optional API keys disables adapters; malformed or unsafe production config fails closed.",
+      "verification": [
+        "Missing optional API keys disables adapters; malformed or unsafe production config fails closed."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-006",
+      "title": "Canonical domain contracts and OpenAPI",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-003"
+      ],
+      "scope": [
+        "Create versioned shared schemas for projects, agents, campaigns, contacts, work items, events, approvals, usage and errors."
+      ],
+      "acceptanceCriteria": "Contract fixtures round-trip and strict validation rejects inconsistent schema versions.",
+      "verification": [
+        "Contract fixtures round-trip and strict validation rejects inconsistent schema versions."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-007",
+      "title": "Database migrations and transaction framework",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-005",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Implement migrations, reversible local dev setup, unique IDs, UTC timestamps, transaction and schema helpers."
+      ],
+      "acceptanceCriteria": "Clean install and roll-forward migration work on disposable local Postgres without prod secrets.",
+      "verification": [
+        "Clean install and roll-forward migration work on disposable local Postgres without prod secrets."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-008",
+      "title": "Tenant and membership domain",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007"
+      ],
+      "scope": [
+        "Persist organizations, owner users, memberships and organization-level settings with stable ownership keys."
+      ],
+      "acceptanceCriteria": "Cross-tenant IDs cannot reference foreign organization's data at database boundaries.",
+      "verification": [
+        "Cross-tenant IDs cannot reference foreign organization's data at database boundaries."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-009",
+      "title": "Owner authentication and sessions",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-008"
+      ],
+      "scope": [
+        "Secure passwordless/OIDC-capable owner login, session expiry, CSRF controls, MFA-ready admin policy."
+      ],
+      "acceptanceCriteria": "Anonymous and expired sessions cannot access owner dashboards or APIs.",
+      "verification": [
+        "Anonymous and expired sessions cannot access owner dashboards or APIs."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-010",
+      "title": "Scoped authorization and human approval roles",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-009",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Implement owner/admin/sales-manager/agent delegation scopes with endpoint and data filters."
+      ],
+      "acceptanceCriteria": "Agents never inherit owner-only authority; negative authorization tests cover every role.",
+      "verification": [
+        "Agents never inherit owner-only authority; negative authorization tests cover every role."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-011",
+      "title": "Postgres tenant row security and isolation tests",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Enforce database tenant isolation with RLS, org-bound foreign keys and test connection roles."
+      ],
+      "acceptanceCriteria": "Attempted cross-tenant reads and writes fail, including ID guessing and joins.",
+      "verification": [
+        "Attempted cross-tenant reads and writes fail, including ID guessing and joins."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-012",
+      "title": "Synthetic fixture engine and safe preview mode",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Seed deterministic synthetic accounts, agents, campaigns, threads and metrics for screenshots and demos."
+      ],
+      "acceptanceCriteria": "Demo clearly says 'Synthetic'; never sends outbound messages or calls metered inference.",
+      "verification": [
+        "Demo clearly says 'Synthetic'; never sends outbound messages or calls metered inference."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-013",
+      "title": "Encrypted artifact storage abstraction",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-008"
+      ],
+      "scope": [
+        "Create object metadata schemas and adapter for local/test storage plus pluggable secure cloud object store."
+      ],
+      "acceptanceCriteria": "Artifacts are versioned, size-bounded, scanned where applicable, and tenant-isolated.",
+      "verification": [
+        "Artifacts are versioned, size-bounded, scanned where applicable, and tenant-isolated."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-014",
+      "title": "Developer runbooks and architecture decision records",
+      "origin": "original",
+      "prs": [],
+      "phase": "F1",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-004",
+        "DOTS-012"
+      ],
+      "scope": [
+        "Document local dev, migrations, contract evolution, endpoint ownership, secret names and outage rollback."
+      ],
+      "acceptanceCriteria": "A new developer can set up demo mode without owner credentials or paid services.",
+      "verification": [
+        "A new developer can set up demo mode without owner credentials or paid services."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-015",
+      "title": "Dark theme tokens and design system",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-003"
+      ],
+      "scope": [
+        "Implement faithful navy/teal/purple styling, spacing, typography and responsive density from interaction spec."
+      ],
+      "acceptanceCriteria": "Desktop resembles reference; no random quote appears anywhere; tokens also support accessible light mode.",
+      "verification": [
+        "Desktop resembles reference; no random quote appears anywhere; tokens also support accessible light mode."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-016",
+      "title": "Accessible cards, overlays, charts and status chips",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-015",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Build reusable focusable controls, popovers, avatar cards, chart primitives, skeletons and aria labels."
+      ],
+      "acceptanceCriteria": "Keyboard/screen-reader tests work; colored lights always have readable status labels.",
+      "verification": [
+        "Keyboard/screen-reader tests work; colored lights always have readable status labels."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-017",
+      "title": "Responsive navigation and command bar",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-016",
+        "DOTS-009"
+      ],
+      "scope": [
+        "Implement collapsible side nav, project search, user controls, notification badge and mobile tabs."
+      ],
+      "acceptanceCriteria": "1440/1024/768/390/320 px layouts do not clip content or require hover.",
+      "verification": [
+        "1440/1024/768/390/320 px layouts do not clip content or require hover."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-018",
+      "title": "Project/offer CRUD and fact versioning",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Create project, offer, pricing-summary and vetted-product-fact CRUD endpoints with tenant/version safety."
+      ],
+      "acceptanceCriteria": "A project and offer can be created, edited, archived and reloaded independently by authorized owner.",
+      "verification": [
+        "A project and offer can be created, edited, archived and reloaded independently by authorized owner."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-019",
+      "title": "Project bucket selection and persistence",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-018"
+      ],
+      "scope": [
+        "Persist bucket visibility, order, campaign linkage and owner project-filter preferences."
+      ],
+      "acceptanceCriteria": "Checkboxes hide/show only presentation buckets, without deleting assignments or tasks.",
+      "verification": [
+        "Checkboxes hide/show only presentation buckets, without deleting assignments or tasks."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-020",
+      "title": "Agent identity CRUD and approved names",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-008",
+        "DOTS-012"
+      ],
+      "scope": [
+        "Add agent identity records referencing 264 approved names, with the first two identities available for opt-in seeding."
+      ],
+      "acceptanceCriteria": "Fast Eddie Felson and Harry Wormwood appear in private demo; commercial tenant has no prepopulated workers.",
+      "verification": [
+        "Fast Eddie Felson and Harry Wormwood appear in private demo; commercial tenant has no prepopulated workers."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-021",
+      "title": "Original avatar pipeline and rights-safe placeholders",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-020",
+        "DOTS-013"
+      ],
+      "scope": [
+        "Support monograms/original portraits or user licensed images, image sizing and inaccessible-image fallback."
+      ],
+      "acceptanceCriteria": "No copyrighted actor/film stills are downloaded or committed by default.",
+      "verification": [
+        "No copyrighted actor/film stills are downloaded or committed by default."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-022",
+      "title": "Server-derived three-state agent presence",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-020",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Define green running lease, yellow waiting/review/queue, red inactive/error from authoritative run state."
+      ],
+      "acceptanceCriteria": "Simulated availability cannot masquerade as a live worker; exact last activity and reason visible.",
+      "verification": [
+        "Simulated availability cannot masquerade as a live worker; exact last activity and reason visible."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-023",
+      "title": "Searchable avatar roster component",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-016",
+        "DOTS-022",
+        "DOTS-021"
+      ],
+      "scope": [
+        "Render agent tiles with top-right status light, role, assigned model, availability and search/filter."
+      ],
+      "acceptanceCriteria": "Works with 2 and 2,000 synthetic identities using virtualization/pagination and keyboard controls.",
+      "verification": [
+        "Works with 2 and 2,000 synthetic identities using virtualization/pagination and keyboard controls."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-024",
+      "title": "Hover/focus/tap agent detail preview",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-023",
+        "DOTS-022"
+      ],
+      "scope": [
+        "Implement accessible quick peek and expanded profile drawer with task, strategy, timestamps, events, results and spend."
+      ],
+      "acceptanceCriteria": "Preview shows only verified events, remains viewport-safe, and is usable without hover.",
+      "verification": [
+        "Preview shows only verified events, remains viewport-safe, and is usable without hover."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-025",
+      "title": "Multi-project agent assignment APIs",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-020",
+        "DOTS-018",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Add transactional campaign/project assignment, priorities, percentages, quotas, concurrency caps and version checks."
+      ],
+      "acceptanceCriteria": "Same agent can serve multiple buckets; stale conflicting updates return explicit retryable conflict.",
+      "verification": [
+        "Same agent can serve multiple buckets; stale conflicting updates return explicit retryable conflict."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-026",
+      "title": "Desktop visual drag-and-drop deployment board",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-019",
+        "DOTS-025",
+        "DOTS-023"
+      ],
+      "scope": [
+        "Allow agents to be dragged into checked buckets and reallocated with optimistic updates and rollback."
+      ],
+      "acceptanceCriteria": "Persisted assignments match server after refresh; conflicting drop and unsaved state are surfaced.",
+      "verification": [
+        "Persisted assignments match server after refresh; conflicting drop and unsaved state are surfaced."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-027",
+      "title": "Touch and keyboard assignment alternatives",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-026",
+        "DOTS-016"
+      ],
+      "scope": [
+        "Add accessible action menus and keyboard move controls for touch and non-pointer users."
+      ],
+      "acceptanceCriteria": "Full assign/reassign/unassign flows work on mobile, screen reader and keyboard.",
+      "verification": [
+        "Full assign/reassign/unassign flows work on mobile, screen reader and keyboard."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-028",
+      "title": "Visual overview and truthful KPI placeholders",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-017",
+        "DOTS-022",
+        "DOTS-012"
+      ],
+      "scope": [
+        "Build summary dashboard with agents, campaign outcomes, state distribution, budget indicators and date filters."
+      ],
+      "acceptanceCriteria": "Production displays real/safely empty values; demo metrics are clearly marked synthetic.",
+      "verification": [
+        "Production displays real/safely empty values; demo metrics are clearly marked synthetic."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-029",
+      "title": "Responsive screenshot and interaction regression suite",
+      "origin": "original",
+      "prs": [],
+      "phase": "F2",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-027",
+        "DOTS-028",
+        "DOTS-024"
+      ],
+      "scope": [
+        "Add deterministic visual snapshots and interaction tests for core shell, roster, hover and buckets."
+      ],
+      "acceptanceCriteria": "Tests cover desktop/tablet/mobile breakpoints and no corner quote; failures produce artifacts.",
+      "verification": [
+        "Tests cover desktop/tablet/mobile breakpoints and no corner quote; failures produce artifacts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-030",
+      "title": "Append-only audit and actor provenance",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Record organization actor, event type, policy version, correlation ID and evidence for high-risk mutations."
+      ],
+      "acceptanceCriteria": "Writes are auditable and tenant-isolated; modifying an audit entry is denied.",
+      "verification": [
+        "Writes are auditable and tenant-isolated; modifying an audit entry is denied."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-031",
+      "title": "Transactional outbox and idempotent event intake",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-030",
+        "DOTS-007"
+      ],
+      "scope": [
+        "Persist business mutation plus outbox atomically and dedupe external webhook/event IDs."
+      ],
+      "acceptanceCriteria": "Crash between commit and delivery does not lose state or create duplicate applied effects.",
+      "verification": [
+        "Crash between commit and delivery does not lose state or create duplicate applied effects."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-032",
+      "title": "Money and invoice ledger domain",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-008"
+      ],
+      "scope": [
+        "Create integer-minor-unit budget accounts, reservations, allocated/incurred/paid records and currency rules."
+      ],
+      "acceptanceCriteria": "No floating-point monetary amounts; double-entry invariants and reconciliation tests pass.",
+      "verification": [
+        "No floating-point monetary amounts; double-entry invariants and reconciliation tests pass."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-033",
+      "title": "Hierarchical $0 spending policies",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-032",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Enforce tenant/campaign/provider/model/channel caps, hard stops, soft alerts and daily/total ceilings."
+      ],
+      "acceptanceCriteria": "Every paid operation is blocked at default $0 even if the browser and agent ask to proceed.",
+      "verification": [
+        "Every paid operation is blocked at default $0 even if the browser and agent ask to proceed."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-034",
+      "title": "Atomic estimate/reserve/settle/refund protocol",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-032",
+        "DOTS-033"
+      ],
+      "scope": [
+        "Reserve worst-case metered costs before execution; settle actual charges and release excess on completion."
+      ],
+      "acceptanceCriteria": "Concurrent requests never overrun shared hard cap; failures and timeouts release/reconcile correctly.",
+      "verification": [
+        "Concurrent requests never overrun shared hard cap; failures and timeouts release/reconcile correctly."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-035",
+      "title": "Visual campaign funding allocation console",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-033",
+        "DOTS-034",
+        "DOTS-016"
+      ],
+      "scope": [
+        "Build spend gauges, funding allocation editor, model cost breakdown and no-money alerts."
+      ],
+      "acceptanceCriteria": "Unallocated balance and reservations reconcile to ledger; invalid/overbudget transfer rejected.",
+      "verification": [
+        "Unallocated balance and reservations reconcile to ledger; invalid/overbudget transfer rejected."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-036",
+      "title": "Deterministic policy decision service",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-030",
+        "DOTS-010",
+        "DOTS-033"
+      ],
+      "scope": [
+        "Build ALLOW/REVIEW/DENY rules for permissions, approved claims, sender, jurisdiction, suppression and spend."
+      ],
+      "acceptanceCriteria": "Agent prompt cannot bypass rule; each decision persists stable rule identifiers and reasons.",
+      "verification": [
+        "Agent prompt cannot bypass rule; each decision persists stable rule identifiers and reasons."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-037",
+      "title": "Owner Action inbox and exact-hash approvals",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-036",
+        "DOTS-016"
+      ],
+      "scope": [
+        "Create owner review requests scoped to draft hash, audience, campaign revision, budget, identity and expiry."
+      ],
+      "acceptanceCriteria": "Changed content revokes approval; stale approvals cannot be replayed for different recipients.",
+      "verification": [
+        "Changed content revokes approval; stale approvals cannot be replayed for different recipients."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-038",
+      "title": "Emergency pause-all and scoped kill switches",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-036",
+        "DOTS-031"
+      ],
+      "scope": [
+        "Stop agent dispatch by organization/campaign/provider/model; preserve queued tasks and audit rationale."
+      ],
+      "acceptanceCriteria": "Pause blocks external dispatch immediately even if prior approval exists; owner can resume safely.",
+      "verification": [
+        "Pause blocks external dispatch immediately even if prior approval exists; owner can resume safely."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-039",
+      "title": "Durable database task queue",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-031"
+      ],
+      "scope": [
+        "Implement per-tenant keyed queue, retries, backoff, priority, dedupe and dead-letter handling."
+      ],
+      "acceptanceCriteria": "Worker restarts preserve pending tasks; repeated deliveries never duplicate business effects.",
+      "verification": [
+        "Worker restarts preserve pending tasks; repeated deliveries never duplicate business effects."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-040",
+      "title": "Worker lease, fencing and heartbeat",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-039",
+        "DOTS-022"
+      ],
+      "scope": [
+        "Implement atomic assignment slots, lease generations, heartbeat and stale-run fencing."
+      ],
+      "acceptanceCriteria": "Two workers cannot concurrently own the same work item; expired worker cannot commit protected output.",
+      "verification": [
+        "Two workers cannot concurrently own the same work item; expired worker cannot commit protected output."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-041",
+      "title": "Encrypted integration credential reference store",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-008",
+        "DOTS-010",
+        "DOTS-030"
+      ],
+      "scope": [
+        "Scope provider credentials, OAuth refresh tokens and encrypted secrets to tenant/provider, with rotation."
+      ],
+      "acceptanceCriteria": "API/logs never expose raw keys; unauthorized access and revocation tests pass.",
+      "verification": [
+        "API/logs never expose raw keys; unauthorized access and revocation tests pass."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-042",
+      "title": "Traces, metrics and privacy-safe operational events",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-039",
+        "DOTS-030",
+        "DOTS-041"
+      ],
+      "scope": [
+        "Add structured logs, queue and API metrics, error tracing, PII redaction and correlation IDs."
+      ],
+      "acceptanceCriteria": "Owner can diagnose failures without seeing secret tokens or raw unnecessary contact data.",
+      "verification": [
+        "Owner can diagnose failures without seeing secret tokens or raw unnecessary contact data."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-043",
+      "title": "Data retention, export and correction foundations",
+      "origin": "original",
+      "prs": [],
+      "phase": "F3",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-030",
+        "DOTS-013",
+        "DOTS-011"
+      ],
+      "scope": [
+        "Implement retention annotations, deletion request schema, export jobs, evidence holds and audit summaries."
+      ],
+      "acceptanceCriteria": "Deletion/retention policy prevents unnecessary long-term storage; test export remains tenant-scoped.",
+      "verification": [
+        "Deletion/retention policy prevents unnecessary long-term storage; test export remains tenant-scoped."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-044",
+      "title": "Work-item state machine and legal transitions",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-039",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Implement CREATED/ELIGIBLE/RUNNING/WAITING/COMPLETED/FAILED/CANCELLED with compare-and-swap."
+      ],
+      "acceptanceCriteria": "Invalid transitions are rejected; idempotent retry returns prior outcome.",
+      "verification": [
+        "Invalid transitions are rejected; idempotent retry returns prior outcome."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-045",
+      "title": "Safe agent schedule and project priority engine",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-044",
+        "DOTS-025",
+        "DOTS-040"
+      ],
+      "scope": [
+        "Allocate work by explicit campaign priorities, agent quotas, legal windows and fair queue selection."
+      ],
+      "acceptanceCriteria": "Same lead is not double-worked; no model runs for idle avatars; timeout windows respected.",
+      "verification": [
+        "Same lead is not double-worked; no model runs for idle avatars; timeout windows respected."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-046",
+      "title": "Agent capability and role configuration",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-020",
+        "DOTS-010",
+        "DOTS-045"
+      ],
+      "scope": [
+        "Manage agent role, allowed tools/channels, model policy, skills, campaign shares and pause state."
+      ],
+      "acceptanceCriteria": "Agent cannot execute a task outside its approved campaign or skill scope.",
+      "verification": [
+        "Agent cannot execute a task outside its approved campaign or skill scope."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-047",
+      "title": "Versioned agent context assembly",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-044",
+        "DOTS-018",
+        "DOTS-046"
+      ],
+      "scope": [
+        "Build bounded task context from approved facts, thread history, assignment and source provenance."
+      ],
+      "acceptanceCriteria": "Retrieved email/website text treated as untrusted and cannot redefine tool privileges.",
+      "verification": [
+        "Retrieved email/website text treated as untrusted and cannot redefine tool privileges."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-048",
+      "title": "Typed action-proposal and tool broker",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-036",
+        "DOTS-047"
+      ],
+      "scope": [
+        "Create allowlisted structured tool schemas with input/output validation and trace correlation."
+      ],
+      "acceptanceCriteria": "No arbitrary shell/URL/email/SQL execution is possible through free-form model text.",
+      "verification": [
+        "No arbitrary shell/URL/email/SQL execution is possible through free-form model text."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-049",
+      "title": "Short-lived execution run coordinator",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-045",
+        "DOTS-048",
+        "DOTS-034"
+      ],
+      "scope": [
+        "Implement model request orchestration, steps, cancellations, deterministic limits and bounded retries."
+      ],
+      "acceptanceCriteria": "All runs exit and checkpoint; failures yield evidence without phantom activity.",
+      "verification": [
+        "All runs exit and checkpoint; failures yield evidence without phantom activity."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-050",
+      "title": "Durable memory and per-run checkpoints",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-049",
+        "DOTS-030"
+      ],
+      "scope": [
+        "Save run summaries, provenance-linked contact facts and replayable decision snapshots."
+      ],
+      "acceptanceCriteria": "New process resumes safely without relying on ChatGPT conversation memory.",
+      "verification": [
+        "New process resumes safely without relying on ChatGPT conversation memory."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-051",
+      "title": "Owner-gated external action dispatcher",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-048",
+        "DOTS-037",
+        "DOTS-038",
+        "DOTS-044"
+      ],
+      "scope": [
+        "Require exact policy review, current authorization, budget and deduplication before any outbound side effect."
+      ],
+      "acceptanceCriteria": "Unapproved, paused, suppressed or unfunded action cannot be dispatched, including on retry.",
+      "verification": [
+        "Unapproved, paused, suppressed or unfunded action cannot be dispatched, including on retry."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-052",
+      "title": "Orphan-run recovery and disputed action quarantine",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-040",
+        "DOTS-050",
+        "DOTS-051"
+      ],
+      "scope": [
+        "Detect stale heartbeats, fence old runs and reconcile ambiguous external effects before retry."
+      ],
+      "acceptanceCriteria": "A crash mid-send triggers reconciliation instead of blind duplicate sending.",
+      "verification": [
+        "A crash mid-send triggers reconciliation instead of blind duplicate sending."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-053",
+      "title": "Run history, evidence and error timeline UI",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-024",
+        "DOTS-030",
+        "DOTS-049"
+      ],
+      "scope": [
+        "Show agents' model, strategy, messages drafted/sent, costs, waiting reasons and event timestamps."
+      ],
+      "acceptanceCriteria": "Agent card can explain every green/yellow/red state using persisted evidence links.",
+      "verification": [
+        "Agent card can explain every green/yellow/red state using persisted evidence links."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-054",
+      "title": "$0 two-agent simulation end-to-end gate",
+      "origin": "original",
+      "prs": [],
+      "phase": "F4",
+      "priority": "P0",
+      "dependsOn": [
+        "DOTS-053",
+        "DOTS-052",
+        "DOTS-026",
+        "DOTS-012"
+      ],
+      "scope": [
+        "Run Fast Eddie and Harry through project bucket assignment, fake CRM tasks and mocked tool proposals."
+      ],
+      "acceptanceCriteria": "No paid calls or outbound contact; complete UI-to-worker-to-checkpoint trace passes repeatedly.",
+      "verification": [
+        "No paid calls or outbound contact; complete UI-to-worker-to-checkpoint trace passes repeatedly."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-055",
+      "title": "Versioned model provider manifest and capability discovery",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-006",
+        "DOTS-041"
+      ],
+      "scope": [
+        "Extend six-model catalog into validated snapshots, revisions, limits, privacy and routing configuration."
+      ],
+      "acceptanceCriteria": "Each provider/model is displayed but disabled when missing credentials; upgrades do not rewrite history.",
+      "verification": [
+        "Each provider/model is displayed but disabled when missing credentials; upgrades do not rewrite history."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-056",
+      "title": "Unified typed provider adapter contract",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-055",
+        "DOTS-048"
+      ],
+      "scope": [
+        "Define structured input/output, tool call normalization, refusal and usage/error metadata."
+      ],
+      "acceptanceCriteria": "Conformance fixtures cover schema failures, empty responses, streamed/nonstreamed output and cancellations.",
+      "verification": [
+        "Conformance fixtures cover schema failures, empty responses, streamed/nonstreamed output and cancellations."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-057",
+      "title": "OpenAI Responses API adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-034"
+      ],
+      "scope": [
+        "Implement authenticated OpenAI API client with tool schema translation, usage capture and timeouts."
+      ],
+      "acceptanceCriteria": "Mocked traces match canonical model results; no consumer ChatGPT subscription assumed to be API credit.",
+      "verification": [
+        "Mocked traces match canonical model results; no consumer ChatGPT subscription assumed to be API credit."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-058",
+      "title": "Claude Messages API adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-034"
+      ],
+      "scope": [
+        "Implement Anthropic adapter, provider-specific tool use and usage reconciliation."
+      ],
+      "acceptanceCriteria": "Mocked tool-use turns, refusal and token accounting pass without external calls.",
+      "verification": [
+        "Mocked tool-use turns, refusal and token accounting pass without external calls."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-059",
+      "title": "Grok API adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-034"
+      ],
+      "scope": [
+        "Implement xAI adapter with verified supported endpoint, tool/function calling and model capability detection."
+      ],
+      "acceptanceCriteria": "Mocks verify request/response mapping; unavailable account model fails closed.",
+      "verification": [
+        "Mocks verify request/response mapping; unavailable account model fails closed."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-060",
+      "title": "MiMo open-weight serving adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-055"
+      ],
+      "scope": [
+        "Support pinned MiMo-V2.6-Pro-RL endpoint and immutable deployment metadata with self/hosted serving configs."
+      ],
+      "acceptanceCriteria": "Manifest and mock health tests pass; repository contains no checkpoint weights.",
+      "verification": [
+        "Manifest and mock health tests pass; repository contains no checkpoint weights."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-061",
+      "title": "GLM open-weight serving adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-055"
+      ],
+      "scope": [
+        "Support pinned GLM-5.3 endpoint, provider-qualified schema and serving profiles."
+      ],
+      "acceptanceCriteria": "Manifest, license gate and mock inference pass; no GPU provisioned by test.",
+      "verification": [
+        "Manifest, license gate and mock inference pass; no GPU provisioned by test."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-062",
+      "title": "Kimi open-weight serving adapter",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-056",
+        "DOTS-055"
+      ],
+      "scope": [
+        "Support pinned Kimi-K3 endpoint, context and reasoning parser config."
+      ],
+      "acceptanceCriteria": "Manifest, license gate and mock inference pass; no GPU download or rental by default.",
+      "verification": [
+        "Manifest, license gate and mock inference pass; no GPU download or rental by default."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-063",
+      "title": "Opt-in external checkpoint installer specification and verification",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-060",
+        "DOTS-061",
+        "DOTS-062"
+      ],
+      "scope": [
+        "Provide revision-pin/hash check, license confirmation, storage path, isolated inference setup and supply-chain controls."
+      ],
+      "acceptanceCriteria": "Dry-run reports weight volume and costs; real download is impossible without approved funding/storage.",
+      "verification": [
+        "Dry-run reports weight volume and costs; real download is impossible without approved funding/storage."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-064",
+      "title": "Budget/privacy-aware model router",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-057",
+        "DOTS-058",
+        "DOTS-059",
+        "DOTS-060",
+        "DOTS-061",
+        "DOTS-062",
+        "DOTS-033"
+      ],
+      "scope": [
+        "Select from six configurations by enabled capabilities, task class, owner weights and funded budget."
+      ],
+      "acceptanceCriteria": "Private-data rules prevent unauthorized fallback; zero-budget provider skipped without network.",
+      "verification": [
+        "Private-data rules prevent unauthorized fallback; zero-budget provider skipped without network."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-065",
+      "title": "Rate-limit, outage and circuit-breaker behavior",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-064",
+        "DOTS-052"
+      ],
+      "scope": [
+        "Retry transient failures with bounded exponential backoff and audit failover decisions."
+      ],
+      "acceptanceCriteria": "Timeout/429/5xx chaos tests never double-execute an outbound action or exceed budget.",
+      "verification": [
+        "Timeout/429/5xx chaos tests never double-execute an outbound action or exceed budget."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-066",
+      "title": "Canonical metered usage reconciliation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-064",
+        "DOTS-034"
+      ],
+      "scope": [
+        "Track tokens, cache, reasoning, compute hours, provider invoices and immutable pricing versions."
+      ],
+      "acceptanceCriteria": "Dashboard spend reconciles with ledger and flags missing/estimated usage separately.",
+      "verification": [
+        "Dashboard spend reconciles with ledger and flags missing/estimated usage separately."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-067",
+      "title": "Model catalog and per-agent/provider UI",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-064",
+        "DOTS-035",
+        "DOTS-017"
+      ],
+      "scope": [
+        "Owner configures keys via secure flow, model selection, routing weights and health panels."
+      ],
+      "acceptanceCriteria": "UI discloses absent keys, cost status, privacy category and disabled models truthfully.",
+      "verification": [
+        "UI discloses absent keys, cost status, privacy category and disabled models truthfully."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-068",
+      "title": "Deterministic six-model adapter benchmark harness",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-057",
+        "DOTS-058",
+        "DOTS-059",
+        "DOTS-060",
+        "DOTS-061",
+        "DOTS-062",
+        "DOTS-054"
+      ],
+      "scope": [
+        "Run fixture-based draft, tool, compliance, quality and latency tests with stub provider responses."
+      ],
+      "acceptanceCriteria": "Six candidates compared without fabricated live performance or API charges.",
+      "verification": [
+        "Six candidates compared without fabricated live performance or API charges."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-069",
+      "title": "Opt-in credential-backed live model smoke gate",
+      "origin": "original",
+      "prs": [],
+      "phase": "F5",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-068",
+        "DOTS-066",
+        "DOTS-041"
+      ],
+      "scope": [
+        "Test real configured providers in bounded sandbox with cost receipt and reproducible result."
+      ],
+      "acceptanceCriteria": "Only explicitly funded models are exercised; failures report account/credential blockers, no assumed success.",
+      "verification": [
+        "Only explicitly funded models are exercised; failures report account/credential blockers, no assumed success."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Explicit owner-funded provider API account(s), scoped API/inference keys and preapproved dollar caps; if unavailable record blocked live smoke, keep mocks passing."
+      ]
+    },
+    {
+      "id": "DOTS-070",
+      "title": "CRM accounts and contacts domain",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-007",
+        "DOTS-011"
+      ],
+      "scope": [
+        "Implement organizations/people, aliases, contact methods, responsible owners and searchable metadata."
+      ],
+      "acceptanceCriteria": "Contact data remains tenant-isolated and cannot silently merge unrelated organizations.",
+      "verification": [
+        "Contact data remains tenant-isolated and cannot silently merge unrelated organizations."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-071",
+      "title": "Lawful lead source and import staging",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-013"
+      ],
+      "scope": [
+        "Build import validation, source provenance, purpose/consent fields and preview-before-commit."
+      ],
+      "acceptanceCriteria": "Invalid or unlawfully sourced records are quarantined; no automatic contact is sent.",
+      "verification": [
+        "Invalid or unlawfully sourced records are quarantined; no automatic contact is sent."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-072",
+      "title": "Entity dedupe and contact identity resolution",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-071"
+      ],
+      "scope": [
+        "Normalize and compare email/domain/organization, present merge review and preserve original sources."
+      ],
+      "acceptanceCriteria": "Duplicates do not trigger double outreach or lose historical conversation identity.",
+      "verification": [
+        "Duplicates do not trigger double outreach or lose historical conversation identity."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-073",
+      "title": "Universal do-not-contact and consent status",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-036"
+      ],
+      "scope": [
+        "Implement suppression lists, consent evidence, legal region policies and contact frequency limits."
+      ],
+      "acceptanceCriteria": "Suppressed contact cannot be queued or sent from any agent/campaign; overrides require lawful audit.",
+      "verification": [
+        "Suppressed contact cannot be queued or sent from any agent/campaign; overrides require lawful audit."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-074",
+      "title": "Prospect ownership and overlap conflict controls",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-072",
+        "DOTS-073",
+        "DOTS-045"
+      ],
+      "scope": [
+        "Allocate each campaign/contact sequence to one active agent and enforce tenant-wide exclusions."
+      ],
+      "acceptanceCriteria": "Parallel agents may sell same product but cannot contact the same prospect twice inadvertently.",
+      "verification": [
+        "Parallel agents may sell same product but cannot contact the same prospect twice inadvertently."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-075",
+      "title": "Audience segmentation and saved lead filters",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-071"
+      ],
+      "scope": [
+        "Provide segments by allowed firmographics, customer signals, source and eligibility."
+      ],
+      "acceptanceCriteria": "Segment preview shows count and exclusions, without creating paid inference.",
+      "verification": [
+        "Segment preview shows count and exclusions, without creating paid inference."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-076",
+      "title": "Evidence-backed relationship event timeline",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-030"
+      ],
+      "scope": [
+        "Link contact source, segmentation, outreach, inbound message, notes and stage transitions."
+      ],
+      "acceptanceCriteria": "Every visible contact event has timestamp, actor and source; unverified model statements aren't facts.",
+      "verification": [
+        "Every visible contact event has timestamp, actor and source; unverified model statements aren't facts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-077",
+      "title": "Configurable product sales pipeline state machine",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Persist qualified/proposal/trial/negotiation/won/lost stages with guarded transitions."
+      ],
+      "acceptanceCriteria": "Stage movement requires evidence rules and never makes up a conversion.",
+      "verification": [
+        "Stage movement requires evidence rules and never makes up a conversion."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-078",
+      "title": "Deal, quote and opportunity objects",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-077",
+        "DOTS-018",
+        "DOTS-032"
+      ],
+      "scope": [
+        "Create multi-contact deals linked to product and campaign, values, probability labels and expected-close dates."
+      ],
+      "acceptanceCriteria": "Forecasted value differs from invoiced and cash received, with verified references.",
+      "verification": [
+        "Forecasted value differs from invoiced and cash received, with verified references."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-079",
+      "title": "Conservative touchpoint attribution",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-076",
+        "DOTS-078"
+      ],
+      "scope": [
+        "Connect outcomes to leads/campaigns with verifiable receipts and deduped first/last-touch windows."
+      ],
+      "acceptanceCriteria": "Attribution never double-counts one closed deal as two paid wins.",
+      "verification": [
+        "Attribution never double-counts one closed deal as two paid wins."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-080",
+      "title": "Visual lead cards, account maps and pipeline boards",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-077",
+        "DOTS-075",
+        "DOTS-017"
+      ],
+      "scope": [
+        "Implement drag stage cards and rich contact inspector with search and bulk review."
+      ],
+      "acceptanceCriteria": "Owner operates CRM without dense mandatory tables, on desktop and touch screen.",
+      "verification": [
+        "Owner operates CRM without dense mandatory tables, on desktop and touch screen."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-081",
+      "title": "Synthetic CRM scale and privacy regression",
+      "origin": "original",
+      "prs": [],
+      "phase": "F6",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-080",
+        "DOTS-072",
+        "DOTS-073",
+        "DOTS-011"
+      ],
+      "scope": [
+        "Run 50k synthetic contacts, multi-tenant isolation and duplicate/suppression tests."
+      ],
+      "acceptanceCriteria": "P95 interactions and query pagination stay bounded; no PII escapes into logs.",
+      "verification": [
+        "P95 interactions and query pagination stay bounded; no PII escapes into logs."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-082",
+      "title": "Campaign lifecycle and immutable revisions",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-018",
+        "DOTS-030",
+        "DOTS-033"
+      ],
+      "scope": [
+        "Implement DRAFT/VALIDATED/APPROVED/SCHEDULED/ACTIVE/PAUSED/COMPLETED transitions with versioned audiences and budgets."
+      ],
+      "acceptanceCriteria": "Only permitted state transitions apply; edits to approved copy create new reviewable version.",
+      "verification": [
+        "Only permitted state transitions apply; edits to approved copy create new reviewable version."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-083",
+      "title": "Visual campaign builder and offer selection",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-082",
+        "DOTS-017",
+        "DOTS-075"
+      ],
+      "scope": [
+        "Create split-pane campaign studio: goal, product, segment, sender, channels, copy, task buckets and progress."
+      ],
+      "acceptanceCriteria": "Owner can save and restore campaign drafts with clean empty-state visuals.",
+      "verification": [
+        "Owner can save and restore campaign drafts with clean empty-state visuals."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-084",
+      "title": "Rich email, pitch and landing-copy editor",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-083",
+        "DOTS-013"
+      ],
+      "scope": [
+        "Support versioned templates, factual claim slots, variables, previews and safe HTML/plain text."
+      ],
+      "acceptanceCriteria": "Owner can edit and approve exact rendered copy; XSS attempts sanitized.",
+      "verification": [
+        "Owner can edit and approve exact rendered copy; XSS attempts sanitized."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-085",
+      "title": "Claim registry, citations and freshness checks",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-018",
+        "DOTS-036",
+        "DOTS-084"
+      ],
+      "scope": [
+        "Attach verified sources and effective dates to product, grant and investment representations."
+      ],
+      "acceptanceCriteria": "Unsupported numerical claims are flagged and cannot pass automated outbound approval.",
+      "verification": [
+        "Unsupported numerical claims are flagged and cannot pass automated outbound approval."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-086",
+      "title": "Offer price and discount guardrails",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-018",
+        "DOTS-036"
+      ],
+      "scope": [
+        "Add offer conditions, authorized quoted prices, restricted claims and approval exceptions."
+      ],
+      "acceptanceCriteria": "Agent cannot invent prices or promise unapproved outcomes in draft or quote.",
+      "verification": [
+        "Agent cannot invent prices or promise unapproved outcomes in draft or quote."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-087",
+      "title": "Jurisdiction, business-hours and cadence rules",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-075",
+        "DOTS-073",
+        "DOTS-036"
+      ],
+      "scope": [
+        "Enforce country/channel scope, quiet hours, frequency, suppression, domain reputation and sending caps."
+      ],
+      "acceptanceCriteria": "Forbidden campaign combinations fail validation with plain-language reasons.",
+      "verification": [
+        "Forbidden campaign combinations fail validation with plain-language reasons."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-088",
+      "title": "Editable campaign strategy and copy variants",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-084",
+        "DOTS-082"
+      ],
+      "scope": [
+        "Attach multiple strategy/copy revisions with eligibility constraints and source version."
+      ],
+      "acceptanceCriteria": "Every generated message traces to exact approved strategy and content revision.",
+      "verification": [
+        "Every generated message traces to exact approved strategy and content revision."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-089",
+      "title": "Campaign simulation and send-plan preview",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-083",
+        "DOTS-085",
+        "DOTS-087",
+        "DOTS-033"
+      ],
+      "scope": [
+        "Dry-run sampled synthetic contacts with render, predicted max costs, exclusions and tool actions."
+      ],
+      "acceptanceCriteria": "No real people contacted and no billable inference; owner sees each blocking reason.",
+      "verification": [
+        "No real people contacted and no billable inference; owner sees each blocking reason."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-090",
+      "title": "Owner campaign approval and revision invalidation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-089",
+        "DOTS-037"
+      ],
+      "scope": [
+        "Securely review sender, audience, channel, total budget, exact message revision and schedule."
+      ],
+      "acceptanceCriteria": "Any material audience/copy/budget change revokes stale approvals and requires re-review.",
+      "verification": [
+        "Any material audience/copy/budget change revokes stale approvals and requires re-review."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-091",
+      "title": "Campaign work generation and safe scheduling",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-090",
+        "DOTS-045",
+        "DOTS-051"
+      ],
+      "scope": [
+        "Enqueue contact/campaign work within active approved limits, priority and quotas."
+      ],
+      "acceptanceCriteria": "Paused, future-start or denied campaigns never dispatch; duplicate queue insertion dedupes.",
+      "verification": [
+        "Paused, future-start or denied campaigns never dispatch; duplicate queue insertion dedupes."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-092",
+      "title": "Visual campaign timeline, goals and control room",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-091",
+        "DOTS-028"
+      ],
+      "scope": [
+        "Show project bucket progress, funnel, expenses, proposed outreach and owner decisions."
+      ],
+      "acceptanceCriteria": "Metrics source visibly distinguishes draft, scheduled, actually sent and revenue received.",
+      "verification": [
+        "Metrics source visibly distinguishes draft, scheduled, actually sent and revenue received."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-093",
+      "title": "Policy-oriented campaign E2E tests",
+      "origin": "original",
+      "prs": [],
+      "phase": "F7",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-092",
+        "DOTS-089"
+      ],
+      "scope": [
+        "Test draft->review->approved->queued->paused scenarios, concurrent edits and budget exhaustion."
+      ],
+      "acceptanceCriteria": "No send or paid request occurs in prohibited states, including race condition tests.",
+      "verification": [
+        "No send or paid request occurs in prohibited states, including race condition tests."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-094",
+      "title": "Tenant-scoped mailbox onboarding",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-041",
+        "DOTS-009"
+      ],
+      "scope": [
+        "Implement supported OAuth mail provider connection, sender authentication checks and token rotation."
+      ],
+      "acceptanceCriteria": "Mail integration remains disabled until the owner grants account consent; no global shared sender.",
+      "verification": [
+        "Mail integration remains disabled until the owner grants account consent; no global shared sender."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-095",
+      "title": "Authenticated inbound webhooks and bounded polling",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-094",
+        "DOTS-031"
+      ],
+      "scope": [
+        "Verify push signatures, replay windows, mailbox sync cursors and attachment safety staging."
+      ],
+      "acceptanceCriteria": "Out-of-order, duplicate and forged events are handled without adding fake replies.",
+      "verification": [
+        "Out-of-order, duplicate and forged events are handled without adding fake replies."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-096",
+      "title": "Canonical conversations and provider threading",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-095",
+        "DOTS-070",
+        "DOTS-072"
+      ],
+      "scope": [
+        "Normalize mail IDs, references, CC, bodies, participants and provider delivery states into threads."
+      ],
+      "acceptanceCriteria": "Replies attach to correct contact/campaign; duplicate imports idempotent.",
+      "verification": [
+        "Replies attach to correct contact/campaign; duplicate imports idempotent."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-097",
+      "title": "Visual Conversation Center with full timelines",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-096",
+        "DOTS-017"
+      ],
+      "scope": [
+        "Build three-pane inbox, transcript, contact context, follow-up status and mobile drilldown."
+      ],
+      "acceptanceCriteria": "Agent/owner can find and inspect a thread with accurate sender/time/delivery labels.",
+      "verification": [
+        "Agent/owner can find and inspect a thread with accurate sender/time/delivery labels."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-098",
+      "title": "Versioned outbound draft pipeline",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-097",
+        "DOTS-084",
+        "DOTS-047"
+      ],
+      "scope": [
+        "Create model/human-authored drafts with source evidence, headers, recipients, variables and expiry."
+      ],
+      "acceptanceCriteria": "Owner can edit content; AI-generated text not mislabeled as verified fact.",
+      "verification": [
+        "Owner can edit content; AI-generated text not mislabeled as verified fact."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-099",
+      "title": "Owner message composer and approvals",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-098",
+        "DOTS-037"
+      ],
+      "scope": [
+        "Implement rich/plain-text preview, reply/forward, attachment selection and exact-message owner approval."
+      ],
+      "acceptanceCriteria": "Content edits invalidate previously approved sends; focus and paste are safe on mobile.",
+      "verification": [
+        "Content edits invalidate previously approved sends; focus and paste are safe on mobile."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-100",
+      "title": "Least-privilege outbound email transport gateway",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-094",
+        "DOTS-051",
+        "DOTS-099",
+        "DOTS-073",
+        "DOTS-091"
+      ],
+      "scope": [
+        "Implement authorized email send with provider idempotency key, sender validation, policy recheck and secure receipt."
+      ],
+      "acceptanceCriteria": "No send unless all current approval, suppression, domain, budget and identity conditions hold.",
+      "verification": [
+        "No send unless all current approval, suppression, domain, budget and identity conditions hold."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-101",
+      "title": "Outbound status, retries and ambiguity quarantine",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-100",
+        "DOTS-052"
+      ],
+      "scope": [
+        "Capture provider accepted/bounced/failed receipts and uncertain-send reconciliation."
+      ],
+      "acceptanceCriteria": "Transport timeout does not create a second email; unmatched responses need owner reconciliation.",
+      "verification": [
+        "Transport timeout does not create a second email; unmatched responses need owner reconciliation."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-102",
+      "title": "Unsubscribe headers and cross-campaign opt-out ingestion",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-100",
+        "DOTS-073"
+      ],
+      "scope": [
+        "Add required unsubscribe mechanisms, tenant postal-address config and high-priority suppression processing."
+      ],
+      "acceptanceCriteria": "Opt-out immediately blocks pending sequences and is auditable; no sender launch if required profile missing.",
+      "verification": [
+        "Opt-out immediately blocks pending sequences and is auditable; no sender launch if required profile missing."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-103",
+      "title": "Bounce, spam complaint and sender health controls",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-101",
+        "DOTS-102"
+      ],
+      "scope": [
+        "Record delivery failures, complaint rate, domain caps and automatic risk pauses."
+      ],
+      "acceptanceCriteria": "High-complaint campaigns pause; known invalid addresses are suppressed.",
+      "verification": [
+        "High-complaint campaigns pause; known invalid addresses are suppressed."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-104",
+      "title": "Reply triage and safe suggested response",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-096",
+        "DOTS-048",
+        "DOTS-051"
+      ],
+      "scope": [
+        "Classify interested/not-interested/question/opt-out/ambiguous with uncertainty, owner escalation and citations."
+      ],
+      "acceptanceCriteria": "Opt-outs processed deterministically, not dependent solely on model classification; uncertain replies escalate.",
+      "verification": [
+        "Opt-outs processed deterministically, not dependent solely on model classification; uncertain replies escalate."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-105",
+      "title": "Cadenced follow-up sequence scheduler",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-104",
+        "DOTS-091",
+        "DOTS-087"
+      ],
+      "scope": [
+        "Schedule authorized follow-ups with max touch count, quiet hours, cancellation on reply and opt-out."
+      ],
+      "acceptanceCriteria": "Reply, pause, or suppression before dispatch cancels queued followup without race.",
+      "verification": [
+        "Reply, pause, or suppression before dispatch cancels queued followup without race."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-106",
+      "title": "Human takeover, conversation ownership and SLA",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-097",
+        "DOTS-051",
+        "DOTS-105"
+      ],
+      "scope": [
+        "Owner can claim a thread, edit/respond, pause agent, release ownership and prioritize replies."
+      ],
+      "acceptanceCriteria": "Agent cannot send while owner owns the conversation unless explicitly delegated.",
+      "verification": [
+        "Agent cannot send while owner owns the conversation unless explicitly delegated."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-107",
+      "title": "Attachment handling, scanning and safe downloads",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-095",
+        "DOTS-013"
+      ],
+      "scope": [
+        "Scan, store, authorize, render or quarantine inbound and proposal attachments."
+      ],
+      "acceptanceCriteria": "Malware, oversized files and forbidden types do not reach model/tool execution.",
+      "verification": [
+        "Malware, oversized files and forbidden types do not reach model/tool execution."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-108",
+      "title": "Simulated end-to-end inbox and send reconciliation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-100",
+        "DOTS-101",
+        "DOTS-102",
+        "DOTS-103",
+        "DOTS-106",
+        "DOTS-107"
+      ],
+      "scope": [
+        "Test full mock response loop, signed events, opt-out, bounce, human takeover and crash mid-send."
+      ],
+      "acceptanceCriteria": "All interaction/UI tests pass without a real mailbox, money or customer outreach.",
+      "verification": [
+        "All interaction/UI tests pass without a real mailbox, money or customer outreach."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-109",
+      "title": "Owner-authorized real mailbox canary",
+      "origin": "original",
+      "prs": [],
+      "phase": "F8",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-108",
+        "DOTS-094",
+        "DOTS-090"
+      ],
+      "scope": [
+        "With connected test mailbox, verify domain settings, legitimate test recipients, provider receipts and opt-outs."
+      ],
+      "acceptanceCriteria": "Live canary evidence recorded; only explicitly enabled sender/test contacts receive messages.",
+      "verification": [
+        "Live canary evidence recorded; only explicitly enabled sender/test contacts receive messages."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Owner-authorized mailbox and sender domain, required physical postal address, configured unsubscribe and lawful test recipient(s)."
+      ]
+    },
+    {
+      "id": "DOTS-110",
+      "title": "Strategy definitions, versioning and constraints",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-088",
+        "DOTS-085"
+      ],
+      "scope": [
+        "Create strategy families, audience rules, allowed personalization, forbidden claims and immutable revisions."
+      ],
+      "acceptanceCriteria": "Owner can modify a proposed new revision without mutating historical experiments.",
+      "verification": [
+        "Owner can modify a proposed new revision without mutating historical experiments."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-111",
+      "title": "Strategy Lab cards, sliders and allocation rules",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-110",
+        "DOTS-016"
+      ],
+      "scope": [
+        "Expose per-campaign champion/experimental percentages (suggested default 50/50) plus configurable min exploration."
+      ],
+      "acceptanceCriteria": "Saved sliders change actual allocation rules; no hidden hardcoded split.",
+      "verification": [
+        "Saved sliders change actual allocation rules; no hidden hardcoded split."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-112",
+      "title": "Deterministic randomized experiment enrollment",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-111",
+        "DOTS-074"
+      ],
+      "scope": [
+        "Enroll eligible lead exactly once per experiment revision, balanced/stratified by segment and campaign."
+      ],
+      "acceptanceCriteria": "Repeated workers/runs use same arm and seed; no cross-experiment duplicate exposures.",
+      "verification": [
+        "Repeated workers/runs use same arm and seed; no cross-experiment duplicate exposures."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-113",
+      "title": "Verified exposure and outcome event accounting",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-112",
+        "DOTS-079",
+        "DOTS-101"
+      ],
+      "scope": [
+        "Capture sent, reply, qualified response, meeting, deal, funds received, spam and costs with evidence."
+      ],
+      "acceptanceCriteria": "Stats cannot count imagined 'closed' or model claims as receipts.",
+      "verification": [
+        "Stats cannot count imagined 'closed' or model claims as receipts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-114",
+      "title": "Materialized performance metrics and source visibility",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-113",
+        "DOTS-066",
+        "DOTS-032"
+      ],
+      "scope": [
+        "Compute per-qualified-outreach margin, cost, conversion, complaint rate and cohort outcomes."
+      ],
+      "acceptanceCriteria": "Dashboard separates actual vs estimated, currency conversions, periods and denominator sizes.",
+      "verification": [
+        "Dashboard separates actual vs estimated, currency conversions, periods and denominator sizes."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-115",
+      "title": "Confidence intervals, sample floors and false discovery rules",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-114"
+      ],
+      "scope": [
+        "Compute interval/credible comparison, time lag, sample size and guardrails before declaring winner."
+      ],
+      "acceptanceCriteria": "Small or imbalanced samples warn; unstable uplift never auto-promotes.",
+      "verification": [
+        "Small or imbalanced samples warn; unstable uplift never auto-promotes."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-116",
+      "title": "Model x strategy factorial comparison",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-114",
+        "DOTS-064",
+        "DOTS-112"
+      ],
+      "scope": [
+        "Report model and strategy effects independently, cohort controls, cost and quality metrics."
+      ],
+      "acceptanceCriteria": "Model/strategy winner decisions include confounder and selection-bias warnings.",
+      "verification": [
+        "Model/strategy winner decisions include confounder and selection-bias warnings."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-117",
+      "title": "Auditable champion promotion and rollback",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-115",
+        "DOTS-116",
+        "DOTS-036"
+      ],
+      "scope": [
+        "Create manual and optionally guarded automatic promotion with version/fingerprint and safety criteria."
+      ],
+      "acceptanceCriteria": "Clear evidence required; every promotion can be rolled back and audited.",
+      "verification": [
+        "Clear evidence required; every promotion can be rolled back and audited."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-118",
+      "title": "Experiment strategy hybrids and new-variant backlog",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-117",
+        "DOTS-110"
+      ],
+      "scope": [
+        "Support strategy variation lineage, mixing proven elements and reserved exploration."
+      ],
+      "acceptanceCriteria": "A hybrid is independently evaluated before replacing champion; variants keep identity history.",
+      "verification": [
+        "A hybrid is independently evaluated before replacing champion; variants keep identity history."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-119",
+      "title": "Analytics visualization, funnel and experiment reports",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-111",
+        "DOTS-114",
+        "DOTS-115",
+        "DOTS-117"
+      ],
+      "scope": [
+        "Build conversion funnel, side-by-side strategy cards, cost/outcome charts and provenance drilldown."
+      ],
+      "acceptanceCriteria": "Visual reports match ledger and underlying immutable events; empty/small samples explained.",
+      "verification": [
+        "Visual reports match ledger and underlying immutable events; empty/small samples explained."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-120",
+      "title": "Controlled experiment fairness and safety tests",
+      "origin": "original",
+      "prs": [],
+      "phase": "F9",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-119",
+        "DOTS-118",
+        "DOTS-093"
+      ],
+      "scope": [
+        "Use large synthetic cohorts, varying deal sizes and timing to test stratification, false positives and stop rules."
+      ],
+      "acceptanceCriteria": "A/B testing neither overstates certainty nor violates unsubscribe/budget policies.",
+      "verification": [
+        "A/B testing neither overstates certainty nor violates unsubscribe/budget policies."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-121",
+      "title": "Funding source and grant program directory",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-018"
+      ],
+      "scope": [
+        "Model grants, foundations, sponsors, partnerships, investor funds, source URLs and verified update timestamps."
+      ],
+      "acceptanceCriteria": "Owner can filter by geography, eligibility, deadline and type; provenance retained.",
+      "verification": [
+        "Owner can filter by geography, eligibility, deadline and type; provenance retained."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-122",
+      "title": "Funding opportunity discovery connectors",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-121",
+        "DOTS-071"
+      ],
+      "scope": [
+        "Use permitted public APIs/feeds and manual import with source evidence and refresh policy."
+      ],
+      "acceptanceCriteria": "Unavailable APIs yield explicit waiting state; no fabricated program/call for proposals.",
+      "verification": [
+        "Unavailable APIs yield explicit waiting state; no fabricated program/call for proposals."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-123",
+      "title": "Grant eligibility rules and fit explanation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-122",
+        "DOTS-085"
+      ],
+      "scope": [
+        "Evaluate applicant/entity type, jurisdiction, stage, restrictions, required documents and program deadlines."
+      ],
+      "acceptanceCriteria": "Eligibility unknown is not shown as eligible; every fit result cites a current source.",
+      "verification": [
+        "Eligibility unknown is not shown as eligible; every fit result cites a current source."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-124",
+      "title": "Visual funding pipeline and opportunity cards",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-123",
+        "DOTS-080"
+      ],
+      "scope": [
+        "Build grant/partner/investor boards with funding range, urgency, eligibility, ownership and source links."
+      ],
+      "acceptanceCriteria": "A funding lead, pending award, commitment and received payment are visually distinct.",
+      "verification": [
+        "A funding lead, pending award, commitment and received payment are visually distinct."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-125",
+      "title": "Grant application and task checklist domain",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-123",
+        "DOTS-013"
+      ],
+      "scope": [
+        "Track draft answers, required documents, milestones, reviews, submission status and evidence."
+      ],
+      "acceptanceCriteria": "No application becomes 'submitted' without provider receipt or owner-verified evidence.",
+      "verification": [
+        "No application becomes 'submitted' without provider receipt or owner-verified evidence."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-126",
+      "title": "Grant document repository and source-grounded drafting",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-125",
+        "DOTS-098",
+        "DOTS-085"
+      ],
+      "scope": [
+        "Attach organization eligibility proofs and generate reviewable narrative drafts only from verified project facts."
+      ],
+      "acceptanceCriteria": "Unsupported organizational claims are blocked; required documents remain private.",
+      "verification": [
+        "Unsupported organizational claims are blocked; required documents remain private."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-127",
+      "title": "Deadline calendar and application reminders",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-125",
+        "DOTS-045"
+      ],
+      "scope": [
+        "Schedule internal review timelines and owner alerts by deadline/timezone, including stale-program recheck."
+      ],
+      "acceptanceCriteria": "Upcoming deadline cards use exact provenance and never silently submit.",
+      "verification": [
+        "Upcoming deadline cards use exact provenance and never silently submit."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-128",
+      "title": "Human-reviewed grant submission workflow",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-126",
+        "DOTS-127",
+        "DOTS-037"
+      ],
+      "scope": [
+        "Create eligibility certification, attachments validation, exact submission payload and authorized action gate."
+      ],
+      "acceptanceCriteria": "Autonomous agent cannot sign/certify or submit regulated representations without owner approval.",
+      "verification": [
+        "Autonomous agent cannot sign/certify or submit regulated representations without owner approval."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-129",
+      "title": "Award, restriction and disbursement reconciliation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-128",
+        "DOTS-032"
+      ],
+      "scope": [
+        "Record offered/accepted award, restriction, payments received and allocations with immutable evidence."
+      ],
+      "acceptanceCriteria": "Grant award is not recorded as cash received until verified receipt; restricted funds separated.",
+      "verification": [
+        "Grant award is not recorded as cash received until verified receipt; restricted funds separated."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-130",
+      "title": "Investor relations policy and opportunity pipeline",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-121",
+        "DOTS-036",
+        "DOTS-076"
+      ],
+      "scope": [
+        "Add investor organization/meeting/interest records, allowable communications classes and solicitation safeguards."
+      ],
+      "acceptanceCriteria": "General solicitation/regulated offer requests are blocked or owner/legal reviewed as required.",
+      "verification": [
+        "General solicitation/regulated offer requests are blocked or owner/legal reviewed as required."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-131",
+      "title": "Investor pitch asset workspace and review",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-130",
+        "DOTS-084",
+        "DOTS-085"
+      ],
+      "scope": [
+        "Version source-grounded deck narratives, financial facts, approved investor email copy and diligence checklist."
+      ],
+      "acceptanceCriteria": "Fictitious traction/revenue claims fail; all outbound pitch revisions link to approved facts.",
+      "verification": [
+        "Fictitious traction/revenue claims fail; all outbound pitch revisions link to approved facts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-132",
+      "title": "Commitment, diligence and investment funds bookkeeping",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-130",
+        "DOTS-032",
+        "DOTS-131"
+      ],
+      "scope": [
+        "Distinguish meeting/interest/term sheet/signed commitment/cash received and legal status."
+      ],
+      "acceptanceCriteria": "Dashboard never labels verbal interest as raised money; proof/source requirements enforced.",
+      "verification": [
+        "Dashboard never labels verbal interest as raised money; proof/source requirements enforced."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-133",
+      "title": "Sponsorship and partnership opportunity workflows",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-121",
+        "DOTS-037",
+        "DOTS-078"
+      ],
+      "scope": [
+        "Track partner research, proposals, approval, contract review, signed outcomes and funds or service exchanged."
+      ],
+      "acceptanceCriteria": "Binding terms require authorized human review; agent cannot autonomously execute contracts.",
+      "verification": [
+        "Binding terms require authorized human review; agent cannot autonomously execute contracts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-134",
+      "title": "Funding performance and portfolio allocation dashboard",
+      "origin": "original",
+      "prs": [],
+      "phase": "F10",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-124",
+        "DOTS-129",
+        "DOTS-132",
+        "DOTS-133",
+        "DOTS-114"
+      ],
+      "scope": [
+        "Show applied/eligible/pending/won/received grant outcomes, investor qualified meetings and true net funding."
+      ],
+      "acceptanceCriteria": "Pipeline and funding amounts reconcile to awards/receipts and exclude forecasts.",
+      "verification": [
+        "Pipeline and funding amounts reconcile to awards/receipts and exclude forecasts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-135",
+      "title": "Configurable pricing and owner-approved quotation flow",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-086",
+        "DOTS-078",
+        "DOTS-037"
+      ],
+      "scope": [
+        "Offer terms, price book revisions, discounts with scoped approvals and sent-quote tracking."
+      ],
+      "acceptanceCriteria": "Quotes use current approved price and do not create binding terms without authorization.",
+      "verification": [
+        "Quotes use current approved price and do not create binding terms without authorization."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-136",
+      "title": "Optional payment processor connector foundation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-135",
+        "DOTS-041"
+      ],
+      "scope": [
+        "Implement opt-in isolated checkout/payment webhook connector, scoped secrets and signature checks."
+      ],
+      "acceptanceCriteria": "No live charges until owner connects separate account and approves plan; sandbox receipts work.",
+      "verification": [
+        "No live charges until owner connects separate account and approves plan; sandbox receipts work."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-137",
+      "title": "Payments, refunds, disputes and subscription receipts",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-136",
+        "DOTS-032",
+        "DOTS-079"
+      ],
+      "scope": [
+        "Reconcile transactions, chargebacks, taxes/fees if applicable, cancellations and immutable ledger entries."
+      ],
+      "acceptanceCriteria": "Actual net realized revenue is computed from verified processor events, not claimed in an email.",
+      "verification": [
+        "Actual net realized revenue is computed from verified processor events, not claimed in an email."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-138",
+      "title": "Renewals and post-sale retention workflows",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-137",
+        "DOTS-105"
+      ],
+      "scope": [
+        "Track lawful customer onboarding, renewals, trial completion, service escalations and churn outcomes."
+      ],
+      "acceptanceCriteria": "Customer support ownership and suppression are respected; churn/revenue metrics use recorded evidence.",
+      "verification": [
+        "Customer support ownership and suppression are respected; churn/revenue metrics use recorded evidence."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-139",
+      "title": "Calendar and meeting scheduling adapters",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-106",
+        "DOTS-041"
+      ],
+      "scope": [
+        "Add provider-neutral calendar availability and authorized meeting creation, edits and cancellations."
+      ],
+      "acceptanceCriteria": "A sales agent cannot access unrelated calendars or create a meeting without delegated permission.",
+      "verification": [
+        "A sales agent cannot access unrelated calendars or create a meeting without delegated permission."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-140",
+      "title": "CRM import/export and external sync connectors",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-076",
+        "DOTS-031",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Provide scoped CSV/API exports plus optional third-party CRM mapping and reconcile loops."
+      ],
+      "acceptanceCriteria": "Stable external IDs and conflict ownership prevent duplication and cross-tenant leakage.",
+      "verification": [
+        "Stable external IDs and conflict ownership prevent duplication and cross-tenant leakage."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-141",
+      "title": "Opt-in website lead form and inbound widget",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-070",
+        "DOTS-073",
+        "DOTS-010"
+      ],
+      "scope": [
+        "Capture permissioned inbound contact intents via authenticated/anti-abuse form endpoints."
+      ],
+      "acceptanceCriteria": "Spam and replay filtered; lead consent and provenance recorded with retention.",
+      "verification": [
+        "Spam and replay filtered; lead consent and provenance recorded with retention."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-142",
+      "title": "Client/account dashboard and invoices view",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-137",
+        "DOTS-140",
+        "DOTS-011"
+      ],
+      "scope": [
+        "Display invoice/payment status, contract evidence and contact history in owner-approved views."
+      ],
+      "acceptanceCriteria": "Customer-facing routes expose only intended tenant/account data; no internal model transcripts.",
+      "verification": [
+        "Customer-facing routes expose only intended tenant/account data; no internal model transcripts."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-143",
+      "title": "Cohort profitability, CAC and revenue reporting",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-137",
+        "DOTS-138",
+        "DOTS-114"
+      ],
+      "scope": [
+        "Combine payments, refunds, retained revenue, model/channel spend and touchpoint attribution."
+      ],
+      "acceptanceCriteria": "Reported net margin matches auditable ledger entries and shows attribution uncertainty.",
+      "verification": [
+        "Reported net margin matches auditable ledger entries and shows attribution uncertainty."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-144",
+      "title": "Opt-in sandbox and live payment acceptance gate",
+      "origin": "original",
+      "prs": [],
+      "phase": "F11",
+      "priority": "P2",
+      "dependsOn": [
+        "DOTS-142",
+        "DOTS-143",
+        "DOTS-136"
+      ],
+      "scope": [
+        "Verify sandbox to production switch, authorized low-risk transaction, reconciliation and rollback."
+      ],
+      "acceptanceCriteria": "No unapproved charge or spending; proof of settlement and refund flow captured before full rollout.",
+      "verification": [
+        "No unapproved charge or spending; proof of settlement and refund flow captured before full rollout."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Explicit owner merchant account, required processor onboarding and permission to run any actual payment/refund."
+      ]
+    },
+    {
+      "id": "DOTS-145",
+      "title": "End-to-end threat model and authorization audit",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-048",
+        "DOTS-036",
+        "DOTS-108",
+        "DOTS-011"
+      ],
+      "scope": [
+        "Review SSRF, prompt injection, tool/data exfiltration, CSRF, XSS, webhook replay and credentials."
+      ],
+      "acceptanceCriteria": "Automated negative tests prove model/tool prompts cannot bypass policy and tenant ACLs.",
+      "verification": [
+        "Automated negative tests prove model/tool prompts cannot bypass policy and tenant ACLs."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-146",
+      "title": "Consent, privacy, correction and deletion end-to-end",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-043",
+        "DOTS-073",
+        "DOTS-096"
+      ],
+      "scope": [
+        "Complete data subject exports, retention expiration, redaction, privacy disclosures and processor inventory."
+      ],
+      "acceptanceCriteria": "GDPR/CASL or other enabled jurisdictions have reviewed policies; unsupported regions disabled.",
+      "verification": [
+        "GDPR/CASL or other enabled jurisdictions have reviewed policies; unsupported regions disabled."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-147",
+      "title": "Sender reputation, compliance and abuse readiness",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-103",
+        "DOTS-087",
+        "DOTS-145"
+      ],
+      "scope": [
+        "Harden DKIM/SPF/DMARC validation, sender domain limits, unsubscribe tests and complaint threshold pauses."
+      ],
+      "acceptanceCriteria": "Real outbound cannot enable until business profile and deliverability test evidence pass.",
+      "verification": [
+        "Real outbound cannot enable until business profile and deliverability test evidence pass."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-148",
+      "title": "WCAG mobile/accessibility audit and repairs",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-029",
+        "DOTS-097",
+        "DOTS-119",
+        "DOTS-124"
+      ],
+      "scope": [
+        "Run keyboard, screen reader, zoom, reduced-motion, touch drag alternative and color contrast reviews."
+      ],
+      "acceptanceCriteria": "Key flows meet WCAG 2.2 AA target with test evidence across supported screen sizes.",
+      "verification": [
+        "Key flows meet WCAG 2.2 AA target with test evidence across supported screen sizes."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-149",
+      "title": "Queries, caches, load and database indexes",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-081",
+        "DOTS-119",
+        "DOTS-053"
+      ],
+      "scope": [
+        "Optimize large roster, timeline, CRM search, campaign progress and model metrics read patterns."
+      ],
+      "acceptanceCriteria": "Synthetic 100k-contact workload meets explicit baseline latency, with no N+1/O(n) UI rendering.",
+      "verification": [
+        "Synthetic 100k-contact workload meets explicit baseline latency, with no N+1/O(n) UI rendering."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-150",
+      "title": "Encrypted backup/restore, object recovery and continuity drill",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-031",
+        "DOTS-013",
+        "DOTS-145"
+      ],
+      "scope": [
+        "Define RPO/RTO targets, periodic encrypted backup, object versioning, restore scripts and lease reconciliation."
+      ],
+      "acceptanceCriteria": "Staging restore of real schema and synthetic records succeeds; evidence/retention preserved.",
+      "verification": [
+        "Staging restore of real schema and synthetic records succeeds; evidence/retention preserved."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-151",
+      "title": "Infrastructure as code and isolated resources",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-005",
+        "DOTS-150"
+      ],
+      "scope": [
+        "Create staging/prod infra manifests for web/API, worker, dedicated DB, object storage, secrets and TLS."
+      ],
+      "acceptanceCriteria": "CI validates config with no paid provisioning; resource deployment requires explicit cost approval.",
+      "verification": [
+        "CI validates config with no paid provisioning; resource deployment requires explicit cost approval."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Explicit owner approval before provisioning any new billable Render/Neon/object-store resource."
+      ]
+    },
+    {
+      "id": "DOTS-152",
+      "title": "Isolated staging environment and rehearsal",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-151",
+        "DOTS-145",
+        "DOTS-148",
+        "DOTS-108",
+        "DOTS-068"
+      ],
+      "scope": [
+        "Deploy with synthetic data, fake mail and paid APIs disabled; test migrations, auth, worker and owner controls."
+      ],
+      "acceptanceCriteria": "One-click scripted smoke proof and rollback succeeds; source SHA and live revision recorded.",
+      "verification": [
+        "One-click scripted smoke proof and rollback succeeds; source SHA and live revision recorded."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-153",
+      "title": "Owner-authorized production deployment workflow",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-152",
+        "DOTS-151"
+      ],
+      "scope": [
+        "Define promotion pipeline, immutable artifacts, rollback, release audit, manual cost/secret gates."
+      ],
+      "acceptanceCriteria": "Only approved infrastructure/credentials permit deployment; no spend from unapproved CI.",
+      "verification": [
+        "Only approved infrastructure/credentials permit deployment; no spend from unapproved CI."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Owner-provisioned production domain, isolation resources, secrets and infrastructure spending authorization."
+      ]
+    },
+    {
+      "id": "DOTS-154",
+      "title": "Scoped real-world first outreach acceptance",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-153",
+        "DOTS-109",
+        "DOTS-069",
+        "DOTS-147",
+        "DOTS-090"
+      ],
+      "scope": [
+        "Exercise owner-approved low-volume permitted campaign via live mailbox/model with full receipts and suppression."
+      ],
+      "acceptanceCriteria": "Live send, reply, opt-out, budget and agent status proven; block if sender, credentials or spending unavailable.",
+      "verification": [
+        "Live send, reply, opt-out, budget and agent status proven; block if sender, credentials or spending unavailable."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Explicit owner approval for real outreach, funded hard caps if needed, validated sender/opt-outs and lawful source of test leads."
+      ]
+    },
+    {
+      "id": "DOTS-155",
+      "title": "Operational dashboard, incident response and kill-switch drills",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-042",
+        "DOTS-038",
+        "DOTS-152"
+      ],
+      "scope": [
+        "Expose worker, mailbox, queue, spend and compliance alerts with triage checklist and event evidence."
+      ],
+      "acceptanceCriteria": "Pause-all/credential revoke drills stop dispatcher and produce incident records; alerts aren't fabricated.",
+      "verification": [
+        "Pause-all/credential revoke drills stop dispatcher and produce incident records; alerts aren't fabricated."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-156",
+      "title": "Horizontal workers, fair-share quotas and tenant backpressure",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-149",
+        "DOTS-040",
+        "DOTS-064"
+      ],
+      "scope": [
+        "Partition job scheduling, admission controls and rate limits for many agents/campaigns with bounded inference."
+      ],
+      "acceptanceCriteria": "Synthetic tens-of-thousands concurrent scheduled identities queue fairly without breaking lease/suppression.",
+      "verification": [
+        "Synthetic tens-of-thousands concurrent scheduled identities queue fairly without breaking lease/suppression."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-157",
+      "title": "Million registered identity scale and cold-start test",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-156",
+        "DOTS-023",
+        "DOTS-032"
+      ],
+      "scope": [
+        "Stress test one million saved avatars/agent identities as database records, with only bounded active workers."
+      ],
+      "acceptanceCriteria": "Paging, searches, storage and costs measured; never claim million always-running agents.",
+      "verification": [
+        "Paging, searches, storage and costs measured; never claim million always-running agents."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    },
+    {
+      "id": "DOTS-158",
+      "title": "Optional commercial multi-tenant onboarding and isolation",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-008",
+        "DOTS-146",
+        "DOTS-157",
+        "DOTS-142"
+      ],
+      "scope": [
+        "Package organization signup/billing-ready roles, trials with zero paid calls, data export and ownership transfers."
+      ],
+      "acceptanceCriteria": "New tenant starts empty, never sees the owner's film-character agents, contacts or API keys.",
+      "verification": [
+        "New tenant starts empty, never sees the owner's film-character agents, contacts or API keys."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "Owner decision to commercialize, license original avatars, publish product terms and comply with applicable privacy and billing obligations."
+      ]
+    },
+    {
+      "id": "DOTS-159",
+      "title": "Read-only Boardroom/Engine Room portfolio interoperability",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-153",
+        "DOTS-006"
+      ],
+      "scope": [
+        "Publish scoped project/event summary contracts and document counterpart repo changes required."
+      ],
+      "acceptanceCriteria": "Salesroom stays independently operable; external app cannot mutate sales data without separate authorization.",
+      "verification": [
+        "Salesroom stays independently operable; external app cannot mutate sales data without separate authorization."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": [
+        "External Boardroom/Engine Room consumer modifications require independently approved and tracked changes in their respective repositories."
+      ]
+    },
+    {
+      "id": "DOTS-160",
+      "title": "Production acceptance, runbooks and definition of done",
+      "origin": "original",
+      "prs": [],
+      "phase": "F12",
+      "priority": "P1",
+      "dependsOn": [
+        "DOTS-154",
+        "DOTS-134",
+        "DOTS-143",
+        "DOTS-150",
+        "DOTS-155",
+        "DOTS-158",
+        "DOTS-159"
+      ],
+      "scope": [
+        "Record demonstrable end-to-end product, funding and analytics journeys and exact blockers in durable release status."
+      ],
+      "acceptanceCriteria": "Evidence differentiates deployed from demo, planned from merged, interest from cash; no false completion.",
+      "verification": [
+        "Evidence differentiates deployed from demo, planned from merged, interest from cash; no false completion."
+      ],
+      "contributingPrs": [],
+      "priorEvidencePrs": [],
+      "externalDependencies": [],
+      "externalPrerequisites": []
+    }
+  ],
+  "pullRequests": [
+    {
+      "id": 4910866210,
+      "number": 1,
+      "title": "Architecture baseline: API-native sales and fundraising command center",
+      "state": "closed",
+      "url": "https://github.com/neophilism/Death-Of-The-Salesman/pull/1",
+      "createdAt": "2026-10-18T16:39:28Z",
+      "updatedAt": "2026-10-18T16:45:33Z",
+      "mergedAt": "2026-10-18T16:45:33Z",
+      "closedAt": "2026-10-18T16:45:33Z",
+      "draft": false
+    },
+    {
+      "id": 4910926584,
+      "number": 2,
+      "title": "DOTS-002: Canonical end-to-end development roadmap and agent instructions",
+      "state": "open",
+      "url": "https://github.com/neophilism/Death-Of-The-Salesman/pull/2",
+      "createdAt": "2026-10-18T16:47:48Z",
+      "updatedAt": "2026-10-18T16:47:48Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": false
+    }
+  ]
+}
