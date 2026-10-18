@@ -6,7 +6,8 @@ for (const file of await listTextFiles()) {
   const source = await readTextFile(file);
   const lines = source.split("\n");
   lines.forEach((line, index) => {
-    if (/[ \t]+$/.test(line)) failures.push(`${file}:${index + 1}: trailing whitespace`);
+    const markdownBreak = path.extname(file) === ".md" && /[^ ]  $/.test(line);
+    if (/[ \t]+$/.test(line) && !markdownBreak) failures.push(`${file}:${index + 1}: trailing whitespace`);
     if (line.includes("\t")) failures.push(`${file}:${index + 1}: tab character`);
   });
   if (path.extname(file) === ".json") {
