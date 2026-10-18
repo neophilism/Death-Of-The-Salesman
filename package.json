@@ -11,12 +11,17 @@
     "packages/*"
   ],
   "scripts": {
+    "audit:dependencies": "pnpm audit --audit-level high",
     "build": "pnpm typecheck && pnpm --filter @dots/web build",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm scan:secrets && pnpm build",
     "dev": "pnpm --filter @dots/web dev",
+    "lint": "node scripts/lint.mjs",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
     "start": "pnpm --filter @dots/web start",
     "start:api": "pnpm --filter @dots/api start",
     "start:worker": "pnpm --filter @dots/worker start",
     "test": "pnpm typecheck && node --test tests/*.test.mjs",
+    "test:failure-contract": "node scripts/verify-test-failure.mjs",
     "typecheck": "tsc --build"
   },
   "devDependencies": {

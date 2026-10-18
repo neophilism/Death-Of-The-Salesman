@@ -87,7 +87,9 @@
       "id": "DOTS-004",
       "title": "CI quality, secret and dependency checks",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        5
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
