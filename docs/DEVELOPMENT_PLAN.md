@@ -87,7 +87,7 @@
 
 **Dependencies:** DOTS-003  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #5
 
 ### DOTS-005 — Validated environment and disabled-by-default integrations
 
