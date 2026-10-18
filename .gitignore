@@ -26,3 +26,6 @@ weights/
 checkpoints/
 hf-cache/
 huggingface-cache/
+
+
+*.tsbuildinfo

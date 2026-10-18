@@ -1,0 +1,20 @@
+{
+  "name": "@dots/web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "typecheck": "tsc --noEmit",
+    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev --hostname 127.0.0.1 --port 3000",
+    "start": "NEXT_TELEMETRY_DISABLED=1 next start --hostname 127.0.0.1 --port 3000"
+  },
+  "dependencies": {
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

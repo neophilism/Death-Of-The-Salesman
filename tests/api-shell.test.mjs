@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createServer} from '../apps/api/server.mjs';
+import {createServer} from '../apps/api/dist/server.js';
 
 test('health is narrow and other routes are blocked', async () => {
   const server = createServer();
@@ -16,3 +16,4 @@ test('health is narrow and other routes are blocked', async () => {
     await new Promise((resolve, reject) => server.close(error => error ? reject(error) : resolve()));
   }
 });
+

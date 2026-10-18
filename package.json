@@ -3,11 +3,25 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "workspaces": ["apps/*", "packages/*"],
-  "scripts": {
-    "check": "node --test tests/*.test.mjs",
-    "build": "node scripts/verify-workspaces.mjs",
-    "start": "node apps/api/server.mjs"
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
   },
-  "engines": {"node": ">=22"}
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "check": "npm run typecheck && npm test && node scripts/validate-pr-registry.mjs",
+    "dev": "node scripts/run-shell.mjs dev",
+    "start": "node scripts/run-shell.mjs start",
+    "start:web": "npm run start --workspace=@dots/web",
+    "start:api": "npm run start --workspace=@dots/api",
+    "start:worker": "npm run start --workspace=@dots/worker"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/node": "22.20.5"
+  }
 }
