@@ -219,8 +219,8 @@ export function authorizeEndpoint(input: {
   );
   if (!route) throw new AuthorizationError("UNKNOWN_ENDPOINT");
 
-  const projectPathId = input.path.match(/^\\/api\\/v1\\/projects\\/([^/]+)$/)?.[1];
-  const contactPathId = input.path.match(/^\\/api\\/v1\\/contacts\\/([^/]+)$/)?.[1];
+  const projectPathId = input.path.match(/^\/api\/v1\/projects\/([^/]+)$/)?.[1];
+  const contactPathId = input.path.match(/^\/api\/v1\/contacts\/([^/]+)$/)?.[1];
   if (
     (projectPathId && input.resource?.projectId && projectPathId !== input.resource.projectId) ||
     (contactPathId && input.resource?.contactId && contactPathId !== input.resource.contactId)
