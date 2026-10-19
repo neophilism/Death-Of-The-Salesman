@@ -127,7 +127,7 @@
 
 **Dependencies:** DOTS-007  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #10
 
 ### DOTS-009 — Owner authentication and sessions
 
