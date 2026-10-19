@@ -45,7 +45,7 @@ export interface EncryptedArtifactRecord {
 export interface ArtifactBackendCapabilities {
   readonly immutableVersions: boolean;
   readonly tenantScopedKeys: boolean;
-  readonly durableVersioning: boolean;
+  readonly versionedObjects: boolean;
 }
 
 export interface ArtifactObjectBackend {
@@ -90,15 +90,23 @@ const assertTimestamp = (value: string, label: string): void => {
 
 const assertScanEvidence = (mediaType: string, scan: ArtifactScanEvidence): void => {
   const requiresScan = !SAFE_UNSCANNED_MEDIA_TYPES.has(mediaType);
+  if (typeof scan !== "object" || scan === null) {
+    throw new Error("scan evidence must be an object");
+  }
   if (requiresScan && (scan.required !== true || scan.status !== "clean")) {
     throw new Error(`${mediaType} requires clean malware-scan evidence before storage`);
   }
   if (scan.required === true) {
-    if (scan.status !== "clean" || scan.scanner.trim() === "") {
+    if (
+      scan.status !== "clean" ||
+      typeof scan.scanner !== "string" ||
+      scan.scanner.trim() === "" ||
+      typeof scan.scannedAt !== "string"
+    ) {
       throw new Error("required scan evidence must identify a clean scanner result");
     }
     assertTimestamp(scan.scannedAt, "scan.scannedAt");
-  } else if (scan.status !== "not-required") {
+  } else if (scan.required !== false || scan.status !== "not-required") {
     throw new Error("unscanned evidence must be explicitly not-required");
   }
 };
@@ -121,9 +129,9 @@ const additionalDataFor = (metadata: ArtifactMetadata): Uint8Array =>
   }), "utf8");
 
 const assertBackendCapabilities = (backend: ArtifactObjectBackend): void => {
-  const { immutableVersions, tenantScopedKeys, durableVersioning } = backend.capabilities;
-  if (!immutableVersions || !tenantScopedKeys || !durableVersioning) {
-    throw new Error("artifact backend must provide immutable, tenant-scoped durable versions");
+  const { immutableVersions, tenantScopedKeys, versionedObjects } = backend.capabilities;
+  if (!immutableVersions || !tenantScopedKeys || !versionedObjects) {
+    throw new Error("artifact backend must provide immutable, tenant-scoped versioned objects");
   }
 };
 
@@ -131,7 +139,7 @@ export class InMemoryArtifactBackend implements ArtifactObjectBackend {
   readonly capabilities = Object.freeze({
     immutableVersions: true,
     tenantScopedKeys: true,
-    durableVersioning: true,
+    versionedObjects: true,
   });
   readonly #records = new Map<string, EncryptedArtifactRecord>();
 
