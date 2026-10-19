@@ -184,7 +184,9 @@
       "id": "DOTS-008",
       "title": "Tenant and membership domain",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        10
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
