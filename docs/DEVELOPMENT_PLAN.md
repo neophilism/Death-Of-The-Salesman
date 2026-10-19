@@ -177,7 +177,7 @@
 
 **Dependencies:** DOTS-007, DOTS-008  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #16
 
 ### DOTS-014 — Developer runbooks and architecture decision records
 
