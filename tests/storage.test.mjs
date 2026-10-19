@@ -104,6 +104,16 @@ test("size, scan, backend, key, and identifier requirements are enforced", async
   );
   await assert.rejects(
     store.put({
+      organizationId: "org-one",
+      artifactId: "bad-scan",
+      mediaType: "application/pdf",
+      bytes: Buffer.from("%PDF"),
+      scan: { required: true, status: "clean" },
+    }),
+    /must identify a clean scanner result/,
+  );
+  await assert.rejects(
+    store.put({
       organizationId: "../foreign",
       artifactId: "attachment",
       mediaType: "text/plain",
@@ -117,10 +127,10 @@ test("size, scan, backend, key, and identifier requirements are enforced", async
       capabilities: {
         immutableVersions: true,
         tenantScopedKeys: false,
-        durableVersioning: true,
+        versionedObjects: true,
       },
     }),
-    /immutable, tenant-scoped durable versions/,
+    /immutable, tenant-scoped versioned objects/,
   );
   assert.throws(
     () => new EncryptedArtifactStore({
