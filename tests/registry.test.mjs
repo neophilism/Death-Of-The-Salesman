@@ -27,7 +27,8 @@ test('canonical plan validates and planned unit count matches',()=>{
  assert.deepEqual(items[11].numbers,[15]);
  assert.deepEqual(items[12].numbers,[16]);
  assert.deepEqual(items[13].numbers,[17]);
- assert.ok(items.slice(14).every(x=>x.numbers.length===0));
+ assert.deepEqual(items[14].numbers,[18]);
+ assert.ok(items.slice(15).every(x=>x.numbers.length===0));
 });
 
 test('future PR titles use stable exact work IDs',()=>{
@@ -67,7 +68,7 @@ test('rejects cross-repo dependencies using this repository',()=>{
 
 test('only real created PR numbers are linked; future work does not claim completed PRs',()=>{
  const refs=source.units.flatMap(u=>u.prs);
- assert.deepEqual(refs,[1,2,4,5,7,8,9,10,11,12,13,15,16,17]);
+ assert.deepEqual(refs,[1,2,4,5,7,8,9,10,11,12,13,15,16,17,18]);
  assert.ok(source.pullRequests.find(p=>p.number===1)?.mergedAt);
  assert.ok(['open','closed'].includes(source.pullRequests.find(p=>p.number===2)?.state), 'dated snapshot may be open or closed');
 });
