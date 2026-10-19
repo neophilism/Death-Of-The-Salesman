@@ -18,6 +18,12 @@ otherwise. The metadata table records an independently generated UUID and `times
 
 Migration files are immutable after merge. Add a higher numbered up/down pair for every schema
 change. Never point local commands or CI at production, and never place a credential-bearing URL
-in source, shell history, logs or documentation. Tenant tables, row security and production
-connection roles belong to later plan units.
+in source, shell history, logs or documentation.
+
+DOTS-011 enables and forces row-level security on tenant-owned records and on shared owner identity
+records through visible memberships. Non-superuser application connections must set
+`app.organization_id` from the authenticated, authorized request at transaction start and must
+reset or discard that connection before reuse. Never accept that value from an untrusted request,
+and never run application traffic as a superuser, table owner, or role with `BYPASSRLS`.
+Migration and break-glass roles intentionally remain outside the application connection pool.
 
