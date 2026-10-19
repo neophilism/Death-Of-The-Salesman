@@ -167,7 +167,7 @@
 
 **Dependencies:** DOTS-007, DOTS-006  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #15
 
 ### DOTS-013 — Encrypted artifact storage abstraction
 
