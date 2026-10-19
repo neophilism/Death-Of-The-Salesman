@@ -135,7 +135,9 @@
       "id": "DOTS-006",
       "title": "Canonical domain contracts and OpenAPI",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        8
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
@@ -3836,6 +3838,18 @@
       "mergedAt": null,
       "closedAt": null,
       "draft": false
+    },
+    {
+      "id": 4911718104,
+      "number": 8,
+      "title": "DOTS-006: Canonical domain contracts and OpenAPI",
+      "state": "open",
+      "url": "https://github.com/neophilism/Death-Of-The-Salesman/pull/8",
+      "createdAt": "2026-10-19T00:13:40Z",
+      "updatedAt": "2026-10-19T00:13:40Z",
+      "mergedAt": null,
+      "closedAt": null,
+      "draft": true
     }
   ]
 }
