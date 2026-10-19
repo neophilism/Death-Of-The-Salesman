@@ -21,6 +21,9 @@
     },
     {
       "path": "packages/worker"
+    },
+    {
+      "path": "packages/storage"
     }
   ]
 }
