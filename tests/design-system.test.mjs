@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const css = await readFile(new URL("./styles.css", import.meta.url), "utf8");
-const page = await readFile(new URL("./page.tsx", import.meta.url), "utf8");
+const css = await readFile(new URL("../apps/web/app/styles.css", import.meta.url), "utf8");
+const page = await readFile(new URL("../apps/web/app/page.tsx", import.meta.url), "utf8");
 
 const hexToRgb = (hex) => {
   const value = Number.parseInt(hex.slice(1), 16);
