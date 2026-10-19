@@ -10,8 +10,14 @@ must carry the organization ID with the referenced ID. `organization_settings` d
 boundary with a composite foreign key to `(organization_id, membership_id)`: a membership from a
 different organization cannot be recorded as the settings actor even when its UUID is known.
 
-Roles are limited to `owner`, `admin` and `sales_manager`; agent delegation is owned by DOTS-010.
-Row-level security, request-scoped database roles and adversarial cross-tenant query coverage are
-owned by DOTS-011. Until those units merge, application code must not expose these tables directly
-to an untrusted client or treat the current schema as a complete authorization system.
+Roles are limited to `owner`, `admin` and `sales_manager`; agent delegations remain constrained
+to the non-owner scopes defined by DOTS-010.
+
+DOTS-011 adds forced PostgreSQL row-level security to organizations, memberships, settings,
+authentication policy, sessions and delegation grants. Shared owner identities and their external
+identity records are visible only through a membership in the current organization. A non-superuser
+request connection must set `app.organization_id` from the verified authorization context inside
+the transaction; an unset context sees no tenant rows. The database rejects foreign-organization
+reads, ID guesses, joins, inserts and updates, while application authorization remains responsible
+for endpoint, role and resource-filter decisions within the selected tenant.
 
