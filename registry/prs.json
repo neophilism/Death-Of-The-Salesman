@@ -208,7 +208,9 @@
       "id": "DOTS-009",
       "title": "Owner authentication and sessions",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        11
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [

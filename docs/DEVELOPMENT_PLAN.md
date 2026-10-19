@@ -137,7 +137,7 @@
 
 **Dependencies:** DOTS-008  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #11
 
 ### DOTS-010 — Scoped authorization and human approval roles
 
