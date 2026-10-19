@@ -216,7 +216,9 @@ jobs:
               WHERE id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
               RETURNING id
           ")" = ""
-                    node scripts/migrate.mjs down
+          node scripts/migrate.mjs down
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regprocedure('app.current_organization_id()') IS NULL")" = "t"
+          node scripts/migrate.mjs down
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.delegation_grants') IS NULL")" = "t"
           node scripts/migrate.mjs down
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.owner_sessions') IS NULL")" = "t"
