@@ -9,6 +9,9 @@ AS $$
   SELECT NULLIF(current_setting('app.organization_id', true), '')::app.entity_id
 $$;
 
+COMMENT ON FUNCTION app.current_organization_id() IS
+  'Transaction-scoped tenant boundary; missing context returns NULL and malformed UUID input fails closed.';
+
 REVOKE ALL ON FUNCTION app.current_organization_id() FROM PUBLIC;
 GRANT USAGE ON SCHEMA app TO dots_runtime;
 GRANT USAGE ON TYPE app.entity_id TO dots_runtime;
