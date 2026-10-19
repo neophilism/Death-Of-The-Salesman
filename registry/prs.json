@@ -257,7 +257,9 @@
       "id": "DOTS-011",
       "title": "Postgres tenant row security and isolation tests",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        14
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
