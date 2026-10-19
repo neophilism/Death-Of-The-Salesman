@@ -107,7 +107,7 @@
 
 **Dependencies:** DOTS-003  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #8
 
 ### DOTS-007 — Database migrations and transaction framework
 
