@@ -37,6 +37,15 @@ test("contracts reject inconsistent versions, unknown fields, and malformed valu
     () => parseContract({ schemaVersion: CONTRACT_SCHEMA_VERSION, kind: "usage", data: { ...fixtures.usage, quantity: 0.5 } }),
     /safe integer/,
   );
+  assert.throws(
+    () =>
+      parseContract({
+        schemaVersion: CONTRACT_SCHEMA_VERSION,
+        kind: "event",
+        data: { ...fixtures.event, occurredAt: "2026-02-31T00:00:00Z" },
+      }),
+    /real ISO 8601/,
+  );
 });
 
 test("OpenAPI components cover exactly the canonical kinds and version", async () => {
