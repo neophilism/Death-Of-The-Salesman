@@ -2,8 +2,8 @@
 
 DOTS-011 adds database-enforced tenant isolation for every organization-bound table. Application
 connections assume the non-login `dots_runtime` role inside a transaction and set the tenant exactly
-once with `SET LOCAL app.organization_id = '<organization UUID>'`. A missing, malformed or foreign
-tenant value exposes no rows and cannot authorize inserts or updates.
+once with `SET LOCAL app.organization_id = '<organization UUID>'`. A missing or foreign tenant
+value exposes no rows and cannot authorize inserts or updates; a malformed UUID aborts the statement.
 
 The migration enables and forces row-level security on organizations, memberships, organization
 settings, authentication policies, owner sessions and delegation grants. Each policy applies the same
