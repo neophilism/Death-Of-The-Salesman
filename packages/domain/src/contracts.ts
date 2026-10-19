@@ -187,7 +187,8 @@ const assertField = (name: string, value: unknown, rule: FieldRule): void => {
     ) {
       throw new Error(`${name} must be a real ISO 8601 UTC timestamp`);
     }
-  }};
+  }
+};
 
 export const parseContract = <K extends ContractKind>(value: unknown): ContractEnvelope<K> => {
   if (!isObject(value)) throw new Error("contract must be an object");
