@@ -101,8 +101,15 @@ export async function startOwnerSession(input: {
     input.maximumAuthenticationAgeSeconds ?? 5 * 60,
     "maximumAuthenticationAgeSeconds",
   );
+  if (!Number.isFinite(now.getTime())) throw new Error("now must be a valid date");
   const claims = await input.verifier.verifyIdToken(input.idToken);
   validClaims(claims);
+  if (
+    claims.mfaVerifiedAt &&
+    (!Number.isFinite(claims.mfaVerifiedAt.getTime()) || claims.mfaVerifiedAt.getTime() > now.getTime())
+  ) {
+    throw new AuthenticationError("UNAUTHENTICATED", "identity could not be verified", 401);
+  }
 
   const authenticationAge = now.getTime() - claims.authenticatedAt.getTime();
   if (authenticationAge < -60_000 || authenticationAge > maximumAuthenticationAgeSeconds * 1_000) {
