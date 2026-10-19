@@ -144,10 +144,18 @@ const endpointScopes = [
 const includesResource = (allowed: readonly string[], requested: string | undefined): boolean =>
   requested === undefined || allowed.includes(requested);
 
-const requireAgentResource = (principal: AgentPrincipal, resource: ResourceSelector): void => {
-  if (!resource.projectId && !resource.campaignId && !resource.contactId) {
-    throw new AuthorizationError("RESOURCE_DENIED");
-  }
+const requireAgentResource = (
+  principal: AgentPrincipal,
+  scope: Scope,
+  resource: ResourceSelector,
+): void => {
+  const matchesScope =
+    (scope === "projects:read" && Boolean(resource.projectId)) ||
+    (scope === "contacts:read" && Boolean(resource.contactId)) ||
+    (scope === "work:execute" && Boolean(resource.projectId || resource.campaignId)) ||
+    (scope === "proposals:create" && Boolean(resource.projectId || resource.campaignId));
+  if (!matchesScope) throw new AuthorizationError("RESOURCE_DENIED");
+
   if (
     !includesResource(principal.resources.projectIds, resource.projectId) ||
     !includesResource(principal.resources.campaignIds, resource.campaignId) ||
@@ -197,7 +205,7 @@ export function authorize(input: {
   ) {
     throw new AuthorizationError("UNAUTHORIZED");
   }
-  requireAgentResource(input.principal, input.resource ?? {});
+  requireAgentResource(input.principal, input.scope, input.resource ?? {});
   return {
     organizationId: input.organizationId,
     scope: input.scope,
