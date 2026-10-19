@@ -15,8 +15,9 @@ database rows.
 - The configured maximum is 10 MiB by default and can only be changed to a positive safe integer.
 - JSON, CSV and plain text may carry explicit `not-required` scan evidence. Every other media
   type requires a canonical clean scan result before storage.
-- Backend adapters must declare immutable versions, tenant-scoped keys and durable versioning.
-  The constructor rejects a backend missing any capability.
+- Backend adapters must declare immutable versions, tenant-scoped keys and versioned objects.
+  The constructor rejects a backend missing any capability; deployment durability is a separate
+  production acceptance gate.
 - The included in-memory backend is for local development and tests only. It is neither durable
   nor a production cloud-store implementation.
 
