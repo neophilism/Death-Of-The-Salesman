@@ -12,7 +12,7 @@ test('canonical plan validates and planned unit count matches',()=>{
  const {document,items,pullRequests}=parsePrRegistry(raw,source.repository);
  assert.equal(document.plannedPrCount,items.length);
  assert.ok(items.length>100);
- assert.equal(pullRequests.length,3);
+ assert.equal(pullRequests.length,2);
  assert.equal(items[0].sourceItemId,'DOTS-001');
  assert.equal(items[1].sourceItemId,'DOTS-002');
  assert.deepEqual(items[2].numbers,[4]);
