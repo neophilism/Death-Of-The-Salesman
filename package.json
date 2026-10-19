@@ -22,7 +22,9 @@
     "start:worker": "pnpm --filter @dots/worker start",
     "test": "pnpm typecheck && node --test tests/*.test.mjs",
     "test:failure-contract": "node scripts/verify-test-failure.mjs",
-    "typecheck": "tsc --build"
+    "typecheck": "tsc --build",
+    "db:migrate": "node scripts/migrate.mjs up",
+    "db:rollback": "node scripts/migrate.mjs down"
   },
   "devDependencies": {
     "@types/node": "24.10.1",
