@@ -90,6 +90,13 @@ const allScopes: readonly Scope[] = [
   "proposals:create",
 ];
 
+const allowedAgentScopes: ReadonlySet<Scope> = new Set([
+  "projects:read",
+  "contacts:read",
+  "work:execute",
+  "proposals:create",
+]);
+
 const roleScopes: Readonly<Record<HumanRole, ReadonlySet<Scope>>> = {
   owner: new Set(allScopes),
   admin: new Set([
@@ -184,7 +191,10 @@ export function authorize(input: {
   ) {
     throw new AuthorizationError("EXPIRED_DELEGATION");
   }
-  if (!input.principal.scopes.includes(input.scope as AgentScope)) {
+  if (
+    !allowedAgentScopes.has(input.scope) ||
+    !input.principal.scopes.includes(input.scope as AgentScope)
+  ) {
     throw new AuthorizationError("UNAUTHORIZED");
   }
   requireAgentResource(input.principal, input.resource ?? {});
