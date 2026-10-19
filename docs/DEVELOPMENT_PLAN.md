@@ -200,7 +200,7 @@
 
 **Dependencies:** DOTS-003  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #18
 
 ### DOTS-016 — Accessible cards, overlays, charts and status chips
 

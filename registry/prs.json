@@ -357,7 +357,9 @@
       "id": "DOTS-015",
       "title": "Dark theme tokens and design system",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        18
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
