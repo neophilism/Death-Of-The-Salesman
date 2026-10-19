@@ -42,6 +42,8 @@ importers:
 
   'packages/auth': {}
 
+  packages/authorization: {}
+
   packages/config: {}
 
   packages/database: {}
