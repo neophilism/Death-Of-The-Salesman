@@ -187,7 +187,7 @@
 
 **Dependencies:** DOTS-004, DOTS-012  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #17
 
 
 ## F2: Visual-first workspace and agent assignment (15 PR-sized work units; P0)
