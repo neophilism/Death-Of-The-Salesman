@@ -159,6 +159,54 @@ jobs:
             echo "owner-only agent scope unexpectedly succeeded" >&2
             exit 1
           fi
+          test "$(psql "$DATABASE_URL" -Atq <<'SQL'
+          BEGIN;
+          SET LOCAL ROLE dots_runtime;
+          SET LOCAL app.organization_id = '11111111-1111-4111-8111-111111111111';
+          SELECT count(*) FROM app.organizations;
+          COMMIT;
+          SQL
+          )" = "1"
+          test "$(psql "$DATABASE_URL" -Atq <<'SQL'
+          BEGIN;
+          SET LOCAL ROLE dots_runtime;
+          SET LOCAL app.organization_id = '11111111-1111-4111-8111-111111111111';
+          SELECT count(*) FROM app.organizations
+            WHERE id = '22222222-2222-4222-8222-222222222222';
+          COMMIT;
+          SQL
+          )" = "0"
+          test "$(psql "$DATABASE_URL" -Atq <<'SQL'
+          BEGIN;
+          SET LOCAL ROLE dots_runtime;
+          SET LOCAL app.organization_id = '11111111-1111-4111-8111-111111111111';
+          SELECT count(*) FROM app.memberships m
+            JOIN app.organization_settings s ON s.organization_id = m.organization_id;
+          COMMIT;
+          SQL
+          )" = "1"
+          test "$(psql "$DATABASE_URL" -Atq <<'SQL'
+          BEGIN;
+          SET LOCAL ROLE dots_runtime;
+          SELECT count(*) FROM app.memberships;
+          COMMIT;
+          SQL
+          )" = "0"
+          if psql "$DATABASE_URL" --set ON_ERROR_STOP=1 <<'SQL'
+          BEGIN;
+          SET LOCAL ROLE dots_runtime;
+          SET LOCAL app.organization_id = '11111111-1111-4111-8111-111111111111';
+          INSERT INTO app.organization_settings(organization_id, updated_by_membership_id)
+            VALUES ('22222222-2222-4222-8222-222222222222', 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb');
+          COMMIT;
+          SQL
+          then
+            echo "cross-tenant row-security write unexpectedly succeeded" >&2
+            exit 1
+          fi
+          node scripts/migrate.mjs down
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regrole('dots_runtime') IS NULL")" = "t"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT relrowsecurity FROM pg_class WHERE oid='app.organizations'::regclass")" = "f"
           node scripts/migrate.mjs down
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.delegation_grants') IS NULL")" = "t"
           node scripts/migrate.mjs down
