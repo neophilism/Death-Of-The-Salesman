@@ -1,4 +1,4 @@
-import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 
 export type MembershipRole = "owner" | "admin" | "sales_manager";
 
@@ -121,7 +121,7 @@ export async function startOwnerSession(input: {
   const csrfToken = randomToken();
   const expiresAt = new Date(now.getTime() + absoluteTtlSeconds * 1_000);
   const idleExpiresAt = new Date(Math.min(expiresAt.getTime(), now.getTime() + idleTtlSeconds * 1_000));
-  const id = randomBytes(16).toString("hex");
+  const id = randomUUID();
 
   await input.sessions.create({
     id,
