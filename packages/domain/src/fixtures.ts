@@ -92,7 +92,8 @@ export const createSyntheticPreview = (
   const projectId = `synthetic-project-${suffix}`;
   const campaignId = `synthetic-campaign-${suffix}`;
   const contactIds = [1, 2, 3].map((index) => `synthetic-contact-${suffix}-${index}`);
-  const agentIds = [`synthetic-agent-${suffix}-fast-eddie`, `synthetic-agent-${suffix}-harry`];
+  const fastEddieAgentId = `synthetic-agent-${suffix}-fast-eddie`;
+  const harryAgentId = `synthetic-agent-${suffix}-harry`;
 
   const contracts: ContractEnvelope[] = [
     envelope("project", {
@@ -102,13 +103,13 @@ export const createSyntheticPreview = (
       status: "active",
     }),
     envelope("agent", {
-      id: agentIds[0],
+      id: fastEddieAgentId,
       organizationId,
       name: "Fast Eddie Felson",
       status: "inactive",
     }),
     envelope("agent", {
-      id: agentIds[1],
+      id: harryAgentId,
       organizationId,
       name: "Harry Wormwood",
       status: "inactive",
