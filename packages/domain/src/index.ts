@@ -5,3 +5,6 @@ export interface HealthReport {
   readonly service: ServiceName;
   readonly status: "ok" | "disabled";
 }
+
+export * from "./contracts.js";
+

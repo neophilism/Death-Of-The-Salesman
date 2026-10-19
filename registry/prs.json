@@ -135,7 +135,9 @@
       "id": "DOTS-006",
       "title": "Canonical domain contracts and OpenAPI",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        8
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
