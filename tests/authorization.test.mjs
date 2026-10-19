@@ -171,6 +171,21 @@ test("agent never receives owner, admin, write, or delegation scopes", () => {
   }
 });
 
+test("malformed agent grants cannot smuggle an owner-only scope", () => {
+  const malformed = agent({ scopes: ["projects:read", "organization:transfer"] });
+  assert.throws(
+    () =>
+      authorize({
+        principal: malformed,
+        organizationId: "org-1",
+        scope: "organization:transfer",
+        resource: { projectId: "project-1" },
+        now,
+      }),
+    denied("UNAUTHORIZED"),
+  );
+});
+
 test("expired and revoked delegations fail before resource evaluation", () => {
   assert.throws(
     () =>
