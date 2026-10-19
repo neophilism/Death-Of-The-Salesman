@@ -218,11 +218,25 @@ export function authorizeEndpoint(input: {
       candidate.method === input.method.toUpperCase() && candidate.pattern.test(input.path),
   );
   if (!route) throw new AuthorizationError("UNKNOWN_ENDPOINT");
+
+  const projectPathId = input.path.match(/^\\/api\\/v1\\/projects\\/([^/]+)$/)?.[1];
+  const contactPathId = input.path.match(/^\\/api\\/v1\\/contacts\\/([^/]+)$/)?.[1];
+  if (
+    (projectPathId && input.resource?.projectId && projectPathId !== input.resource.projectId) ||
+    (contactPathId && input.resource?.contactId && contactPathId !== input.resource.contactId)
+  ) {
+    throw new AuthorizationError("RESOURCE_DENIED");
+  }
+
   return authorize({
     principal: input.principal,
     organizationId: input.organizationId,
     scope: route.scope,
-    resource: input.resource,
+    resource: {
+      ...input.resource,
+      ...(projectPathId ? { projectId: projectPathId } : {}),
+      ...(contactPathId ? { contactId: contactPathId } : {}),
+    },
     now: input.now,
   });
 }
