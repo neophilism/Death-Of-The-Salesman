@@ -40,7 +40,9 @@ importers:
         specifier: workspace:*
         version: link:../domain
 
-  packages/auth: {}\n\n  packages/config: {}
+  packages/auth: {}
+
+  packages/config: {}
 
   packages/database: {}
 
