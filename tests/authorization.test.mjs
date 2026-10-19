@@ -253,3 +253,17 @@ test("endpoint path IDs must match the authorized resource selector", () => {
     denied("RESOURCE_DENIED"),
   );
 });
+
+test("agent selectors must match the requested scope type", () => {
+  assert.throws(
+    () =>
+      authorize({
+        principal: agent(),
+        organizationId: "org-1",
+        scope: "projects:read",
+        resource: { contactId: "contact-1" },
+        now,
+      }),
+    denied("RESOURCE_DENIED"),
+  );
+});
