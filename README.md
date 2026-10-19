@@ -1,6 +1,8 @@
 # Death Of The Salesman
 
-An API-native, multi-model, **visual-first sales and fundraising command center**. This repository is at the architectural/planning stage; the application and its real-world integrations have **not yet been implemented, deployed or verified**.
+An API-native, multi-model, **visual-first sales and fundraising command center**. This repository
+contains an early zero-cost application foundation; real-world integrations have **not yet been
+deployed or verified**.
 
 ## Start here
 
@@ -9,17 +11,22 @@ An API-native, multi-model, **visual-first sales and fundraising command center*
 - [Complete development plan](docs/DEVELOPMENT_PLAN.md) — all phases and acceptance gates. Generated from one canonical plan.
 - [Canonical machine-readable PR registry](registry/prs.json) — real PR mapping and dependency DAG, compatible with Boardroom's v1 contract.
 - [Development-agent instructions](AGENTS.md) — implementation and checkpoint discipline.
+- [Zero-credential developer runbook](docs/DEVELOPER_RUNBOOK.md) — safe demo setup, daily commands, secret names and ownership boundaries.
+- [Outage and rollback runbook](docs/OUTAGE_ROLLBACK_RUNBOOK.md) — fail-closed stabilization, rollback decisions and recovery verification.
+- [Architecture decision records](docs/adr/) — accepted contract-evolution and endpoint-ownership decisions.
 - [Approved salesman names](registry/approved-salesman-names.json) — 264 owner-approved character names, starting with **Fast Eddie Felson** and **Harry Wormwood**.
 - [Six model candidates](registry/model-catalog.json) — OpenAI, Claude, Grok, MiMo, GLM, Kimi; disabled until credentials and funding are provided.
 
 ## Development validation
 
 ```sh
-node scripts/validate-pr-registry.mjs
-node --test tests/registry.test.mjs
+pnpm check
+pnpm audit:dependencies
 ```
 
-The roadmap CI is dependency-free and does not call paid APIs, send messages or start inference servers. Later application development will add full build, tests, security scans, E2E and deployment checks.
+The source-quality and roadmap checks use synthetic data and do not call paid APIs, send messages,
+or start inference servers. Database acceptance uses disposable PostgreSQL in CI. Deployment and
+live-provider checks remain separate plan gates.
 
 ## Operating guardrails
 

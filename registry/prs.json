@@ -332,7 +332,9 @@
       "id": "DOTS-014",
       "title": "Developer runbooks and architecture decision records",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        17
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
