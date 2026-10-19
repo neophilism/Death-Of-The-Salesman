@@ -117,7 +117,7 @@
 
 **Dependencies:** DOTS-005, DOTS-006  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #9
 
 ### DOTS-008 — Tenant and membership domain
 
