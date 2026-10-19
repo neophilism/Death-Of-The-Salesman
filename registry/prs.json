@@ -232,7 +232,9 @@
       "id": "DOTS-010",
       "title": "Scoped authorization and human approval roles",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        12
+      ],
       "phase": "F1",
       "priority": "P0",
       "dependsOn": [
