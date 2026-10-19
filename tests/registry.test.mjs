@@ -21,7 +21,8 @@ test('canonical plan validates and planned unit count matches',()=>{
  assert.deepEqual(items[5].numbers,[8]);
  assert.deepEqual(items[6].numbers,[9]);
  assert.deepEqual(items[7].numbers,[10]);
- assert.ok(items.slice(8).every(x=>x.numbers.length===0));
+ assert.deepEqual(items[8].numbers,[11]);
+ assert.ok(items.slice(9).every(x=>x.numbers.length===0));
 });
 
 test('future PR titles use stable exact work IDs',()=>{
