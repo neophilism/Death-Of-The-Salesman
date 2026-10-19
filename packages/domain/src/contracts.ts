@@ -174,13 +174,20 @@ const assertField = (name: string, value: unknown, rule: FieldRule): void => {
   ) {
     throw new Error(`${name} must be a safe integer at least ${rule.minimum}`);
   }
-  if (
-    rule.type === "utcTimestamp" &&
-    (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value) || Number.isNaN(Date.parse(value)))
-  ) {
-    throw new Error(`${name} must be an ISO 8601 UTC timestamp`);
-  }
-};
+  if (rule.type === "utcTimestamp") {
+    const matchesShape =
+      typeof value === "string" &&
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(value);
+    const normalized = matchesShape && !value.includes(".") ? value.replace("Z", ".000Z") : value;
+    if (
+      !matchesShape ||
+      typeof normalized !== "string" ||
+      Number.isNaN(Date.parse(normalized)) ||
+      new Date(normalized).toISOString() !== normalized
+    ) {
+      throw new Error(`${name} must be a real ISO 8601 UTC timestamp`);
+    }
+  }};
 
 export const parseContract = <K extends ContractKind>(value: unknown): ContractEnvelope<K> => {
   if (!isObject(value)) throw new Error("contract must be an object");
