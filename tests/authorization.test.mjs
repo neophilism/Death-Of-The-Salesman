@@ -224,3 +224,32 @@ test("unregistered endpoint and method combinations are denied", () => {
     denied("UNKNOWN_ENDPOINT"),
   );
 });
+
+test("runtime agent principals cannot forge an owner-only scope", () => {
+  assert.throws(
+    () =>
+      authorize({
+        principal: agent({ scopes: ["organization:transfer"] }),
+        organizationId: "org-1",
+        scope: "organization:transfer",
+        resource: { projectId: "project-1" },
+        now,
+      }),
+    denied("UNAUTHORIZED"),
+  );
+});
+
+test("endpoint path IDs must match the authorized resource selector", () => {
+  assert.throws(
+    () =>
+      authorizeEndpoint({
+        principal: agent(),
+        organizationId: "org-1",
+        method: "GET",
+        path: "/api/v1/contacts/contact-2",
+        resource: { contactId: "contact-1" },
+        now,
+      }),
+    denied("RESOURCE_DENIED"),
+  );
+});
