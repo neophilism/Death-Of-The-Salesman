@@ -61,7 +61,7 @@ test('rejects cross-repo dependencies using this repository',()=>{
 
 test('only real created PR numbers are linked; future work does not claim completed PRs',()=>{
  const refs=source.units.flatMap(u=>u.prs);
- assert.deepEqual(refs,[1,2,4,5,7,8,9,10]);
+ assert.deepEqual(refs,[1,2,4,5,7,8,9,10,11]);
  assert.ok(source.pullRequests.find(p=>p.number===1)?.mergedAt);
  assert.ok(['open','closed'].includes(source.pullRequests.find(p=>p.number===2)?.state), 'dated snapshot may be open or closed');
 });
