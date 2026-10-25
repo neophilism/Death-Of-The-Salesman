@@ -381,7 +381,9 @@
       "id": "DOTS-016",
       "title": "Accessible cards, overlays, charts and status chips",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        20
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
