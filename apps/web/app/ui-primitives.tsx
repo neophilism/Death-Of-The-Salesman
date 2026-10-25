@@ -74,12 +74,13 @@ export function AccessiblePopover({
 }
 
 export function MetricBars({
+  id,
   title,
   values,
-}: Readonly<{ title: string; values: readonly { label: string; value: number; maximum: number }[] }>) {
+}: Readonly<{ id: string; title: string; values: readonly { label: string; value: number; maximum: number }[] }>) {
   return (
-    <figure className="metric-chart" aria-labelledby="metric-chart-title">
-      <figcaption id="metric-chart-title">{title}</figcaption>
+    <figure className="metric-chart" aria-labelledby={`${id}-title`}>
+      <figcaption id={`${id}-title`}>{title}</figcaption>
       <dl>
         {values.map((item) => {
           const percent = item.maximum > 0 ? Math.min(100, Math.max(0, (item.value / item.maximum) * 100)) : 0;
@@ -114,13 +115,14 @@ export function LoadingSkeleton({ label }: Readonly<{ label: string }>) {
 }
 
 export function OverlayPanel({
+  id,
   title,
   children,
-}: Readonly<{ title: string; children: ReactNode }>) {
+}: Readonly<{ id: string; title: string; children: ReactNode }>) {
   return (
-    <section className="overlay-panel" role="dialog" aria-modal="false" aria-labelledby="overlay-title">
+    <section className="overlay-panel" role="dialog" aria-modal="false" aria-labelledby={`${id}-title`}>
       <div className="overlay-heading">
-        <h3 id="overlay-title">{title}</h3>
+        <h3 id={`${id}-title`}>{title}</h3>
         <CommandButton aria-label={`Close ${title}`}>Close</CommandButton>
       </div>
       {children}
