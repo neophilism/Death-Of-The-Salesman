@@ -220,7 +220,7 @@
 
 **Dependencies:** DOTS-016, DOTS-009  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #21
 
 ### DOTS-018 — Project/offer CRUD and fact versioning
 
