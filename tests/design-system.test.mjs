@@ -40,14 +40,13 @@ test("theme supports accessible responsive interaction states", () => {
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /max-width: 767px/);
   assert.match(css, /max-width: 359px/);
-  assert.match(page, /data-state=\{service\.state\}/);
+  assert.match(page, /state=\{service\.state\}/);
   for (const label of ["Ready", "Local only", "Disabled"]) assert.match(page, new RegExp(label));
 });
 
 test("shell contains no decorative salesman quote", () => {
   assert.doesNotMatch(page, /quote|quotation|blockquote/i);
 });
-
 
 test("reusable primitives retain native keyboard and screen-reader contracts", () => {
   assert.match(primitives, /<button className="command-button" type="button"/);
