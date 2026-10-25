@@ -4,6 +4,7 @@ import test from "node:test";
 
 const css = await readFile(new URL("../apps/web/app/styles.css", import.meta.url), "utf8");
 const page = await readFile(new URL("../apps/web/app/page.tsx", import.meta.url), "utf8");
+const primitives = await readFile(new URL("../apps/web/app/ui-primitives.tsx", import.meta.url), "utf8");
 
 const hexToRgb = (hex) => {
   const value = Number.parseInt(hex.slice(1), 16);
@@ -39,10 +40,42 @@ test("theme supports accessible responsive interaction states", () => {
   assert.match(css, /prefers-reduced-motion: reduce/);
   assert.match(css, /max-width: 767px/);
   assert.match(css, /max-width: 359px/);
-  assert.match(page, /data-state=\{service\.state\}/);
+  assert.match(page, /state=\{service\.state\}/);
   for (const label of ["Ready", "Local only", "Disabled"]) assert.match(page, new RegExp(label));
 });
 
 test("shell contains no decorative salesman quote", () => {
   assert.doesNotMatch(page, /quote|quotation|blockquote/i);
+});
+
+test("reusable primitives retain native keyboard and screen-reader contracts", () => {
+  assert.match(primitives, /<button className="command-button" type="button"/);
+  assert.match(primitives, /<details className="popover">/);
+  assert.match(primitives, /<summary>\{label\}<\/summary>/);
+  assert.match(primitives, /role="dialog"/);
+  assert.match(primitives, /aria-modal="false"/);
+  assert.match(primitives, /<figure className="metric-chart"/);
+  assert.match(primitives, /<figcaption/);
+  assert.match(primitives, /role="status" aria-live="polite"/);
+  assert.match(primitives, /aria-label=\{\`Review \$\{name\} details\`\}/);
+});
+
+test("status, charts, avatars, loading and overlays expose readable evidence", () => {
+  assert.match(primitives, /<span>\{label\}<\/span>/, "status chip must render a text label beside its light");
+  assert.match(primitives, /aria-hidden="true"/);
+  assert.match(page, /Waiting — no provider/);
+  assert.match(page, /Inactive — dispatch disabled/);
+  assert.match(page, /Synthetic work evidence/);
+  assert.match(page, /Loading synthetic campaign summary/);
+  assert.match(page, /Approval details/);
+  assert.doesNotMatch(page, /<img|https?:\/\//, "preview must not introduce unlicensed remote avatar imagery");
+});
+
+test("primitive layout is responsive and focus states do not depend on hover", () => {
+  assert.match(css, /\.agent-grid, \.primitive-grid/);
+  assert.match(css, /max-width: 900px/);
+  assert.match(css, /max-width: 520px/);
+  assert.match(css, /\.command-button:hover/);
+  assert.match(css, /:focus-visible/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
 });

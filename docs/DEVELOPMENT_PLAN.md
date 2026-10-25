@@ -210,7 +210,7 @@
 
 **Dependencies:** DOTS-015, DOTS-006  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #20
 
 ### DOTS-017 — Responsive navigation and command bar
 
