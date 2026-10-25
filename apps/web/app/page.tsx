@@ -7,6 +7,7 @@ import {
   OverlayPanel,
   StatusChip,
 } from "./ui-primitives";
+import { WorkspaceNavigation } from "./workspace-navigation";
 
 const services = [
   { name: "Web console", status: "Ready", state: "ready" },
@@ -16,7 +17,8 @@ const services = [
 
 export default function Home() {
   return (
-    <main className="shell">
+    <WorkspaceNavigation>
+      <main className="shell">
       <header className="shell-header">
         <div className="shell-copy">
           <p className="eyebrow">Synthetic component preview</p>
@@ -91,6 +93,7 @@ export default function Home() {
           ))}
         </dl>
       </section>
-    </main>
+      </main>
+    </WorkspaceNavigation>
   );
 }

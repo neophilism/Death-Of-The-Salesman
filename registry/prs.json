@@ -406,7 +406,9 @@
       "id": "DOTS-017",
       "title": "Responsive navigation and command bar",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        21
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [

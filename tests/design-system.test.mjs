@@ -79,3 +79,26 @@ test("primitive layout is responsive and focus states do not depend on hover", (
   assert.match(css, /:focus-visible/);
   assert.match(css, /prefers-reduced-motion: reduce/);
 });
+
+
+test("workspace navigation exposes keyboard and screen-reader contracts", async () => {
+  const navigation = await readFile(new URL("../apps/web/app/workspace-navigation.tsx", import.meta.url), "utf8");
+  assert.match(navigation, /aria-label="Workspace navigation"/);
+  assert.match(navigation, /aria-expanded=\{!collapsed\}/);
+  assert.match(navigation, /aria-controls="primary-navigation"/);
+  assert.match(navigation, /role="search"/);
+  assert.match(navigation, /htmlFor="project-search"/);
+  assert.match(navigation, /aria-label="Notifications, 2 unread"/);
+  assert.match(navigation, /<details className="user-controls">/);
+  assert.match(navigation, /aria-label="Mobile workspace tabs"/);
+});
+
+test("workspace navigation covers every required responsive width without hover dependency", () => {
+  for (const width of ["1024px", "768px", "390px", "320px"]) {
+    assert.match(css, new RegExp(`max-width: ${width.replace(".", "\\.")}`));
+  }
+  assert.match(css, /grid-template-columns: 248px minmax\(0, 1fr\)/);
+  assert.match(css, /\.workspace-body \{ min-width: 0; \}/);
+  assert.match(css, /\.mobile-tabs \{[\s\S]*display: none;/);
+  assert.match(css, /\.mobile-tabs[\s\S]*position: fixed/);
+});
