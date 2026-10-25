@@ -63,6 +63,7 @@ export default function Home() {
 
       <section className="primitive-grid" aria-label="Chart, loading, and overlay primitives">
         <MetricBars
+          id="synthetic-work-evidence"
           title="Synthetic work evidence"
           values={[
             { label: "Reviewed", value: 7, maximum: 10 },
@@ -71,7 +72,7 @@ export default function Home() {
           ]}
         />
         <LoadingSkeleton label="Loading synthetic campaign summary" />
-        <OverlayPanel title="Approval details">
+        <OverlayPanel id="approval-details" title="Approval details">
           <p>Nothing can be sent from this preview. Owner authority, policy, facts, suppression, and budget remain required.</p>
         </OverlayPanel>
       </section>
