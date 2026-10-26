@@ -87,7 +87,15 @@ test("inactive, terminal, missing, and untrusted states cannot appear live", () 
     identityStatus: "inactive",
   });
   assert.equal(inactive.color, "red");
+  assert.equal(inactive.authoritative, true);
   assert.match(inactive.reason, /identity is inactive/);
+
+  const inactiveSynthetic = deriveAgentPresence({
+    ...input({ ...running, source: "synthetic-preview" }),
+    identityStatus: "inactive",
+  });
+  assert.equal(inactiveSynthetic.color, "red");
+  assert.equal(inactiveSynthetic.authoritative, false);
 
   const complete = deriveAgentPresence(input({
     ...running,
