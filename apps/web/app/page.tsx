@@ -18,6 +18,12 @@ const rosterAgents: readonly RosterAgent[] = [
     status: "waiting",
     statusLabel: "Waiting — no provider",
     availability: "No provider or campaign assigned",
+    currentTask: "Waiting for a provider and campaign assignment",
+    strategy: "No strategy is active until reviewed work and provider capability are assigned.",
+    lastActivityAt: null,
+    resultSummary: "No verified result",
+    spend: { currency: "USD", amountMinor: 0 },
+    events: [],
   },
   {
     id: "agent-harry-wormwood",
@@ -27,6 +33,21 @@ const rosterAgents: readonly RosterAgent[] = [
     status: "inactive",
     statusLabel: "Inactive — dispatch disabled",
     availability: "Outbound actions disabled",
+    currentTask: "No active task",
+    strategy: "Research remains disabled until owner authority and a reviewed campaign exist.",
+    lastActivityAt: null,
+    resultSummary: "No verified result",
+    spend: { currency: "USD", amountMinor: 0 },
+    events: [
+      {
+        id: "preview-only",
+        occurredAt: "2026-10-26T00:00:00.000Z",
+        label: "Synthetic preview",
+        result: "Not evidence",
+        verified: false,
+        source: "synthetic-preview",
+      },
+    ],
   },
 ];
 
