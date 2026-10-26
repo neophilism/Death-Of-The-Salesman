@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+"use client";\n\nimport { useState, type ButtonHTMLAttributes, type ReactNode } from "react";
 
 export type RuntimeState = "ready" | "waiting" | "inactive";
 
@@ -22,7 +22,7 @@ export function CommandButton({
   );
 }
 
-export function AgentCard({
+export function AgentAvatar({ name, imageUrl }: Readonly<{ name: string; imageUrl?: string }>) {\n  const [failed, setFailed] = useState(false);\n  const initials = name\n    .replaceAll('"', "")\n    .trim()\n    .split(/\\s+/u)\n    .filter(Boolean)\n    .map((part) => [...part][0])\n    .filter(Boolean)\n    .filter((initial, index, values) => values.length === 1 || index === 0 || index === values.length - 1)\n    .join("")\n    .slice(0, 2)\n    .toLocaleUpperCase("en-US") || "?";\n\n  return (\n    <div className="avatar" aria-hidden="true">\n      {imageUrl && !failed ? (\n        <img src={imageUrl} alt="" onError={() => setFailed(true)} />\n      ) : initials}\n    </div>\n  );\n}\n\nexport function AgentCard({
   name,
   role,
   summary,
@@ -49,7 +49,7 @@ export function AgentCard({
       <div className="agent-copy">
         <div className="agent-heading">
           <div>
-            <h3 id={`agent-${initials}`}>{name}</h3>
+            <h3 id={`agent-${name.replaceAll(" ", "-")}`}>{name}</h3>
             <p>{role}</p>
           </div>
           <StatusChip state={status} label={statusLabel} />
