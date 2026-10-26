@@ -480,7 +480,9 @@
       "id": "DOTS-020",
       "title": "Agent identity CRUD and approved names",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        24
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [

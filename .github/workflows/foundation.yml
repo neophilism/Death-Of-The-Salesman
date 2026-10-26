@@ -83,7 +83,7 @@ jobs:
           set -euo pipefail
           node scripts/migrate.mjs up
           node scripts/migrate.mjs up
-          test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app_meta.schema_migrations")" = "7"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app_meta.schema_migrations")" = "8"
           test "$(psql "$DATABASE_URL" -Atc "SELECT count(DISTINCT app.new_id()) FROM generate_series(1,100)")" = "100"
           test "$(psql "$DATABASE_URL" -Atc "SELECT pg_typeof(app.utc_now())::text")" = "timestamp with time zone"
           psql "$DATABASE_URL" --set ON_ERROR_STOP=1 <<'SQL'
@@ -149,6 +149,11 @@ jobs:
             '99999999-9999-4999-8999-999999999999',
             false, 3
           );
+          INSERT INTO app.agent_identities(
+            id, organization_id, approved_name_id, display_name, updated_by_membership_id
+          ) VALUES
+            ('dddddddd-dddd-4ddd-8ddd-dddddddddddd', '11111111-1111-4111-8111-111111111111', 98, 'Fast Eddie Felson', 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'),
+            ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee', '11111111-1111-4111-8111-111111111111', 59, 'Harry Wormwood', 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa');
           UPDATE app.projects
              SET label = 'Launch v2', version = version + 1, updated_at = app.utc_now()
            WHERE id = '55555555-5555-4555-8555-555555555555' AND version = 1;
@@ -166,6 +171,13 @@ jobs:
           test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app.pricing_summaries WHERE offer_id = '66666666-6666-4666-8666-666666666666'")" = "1"
           test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app.vetted_product_facts WHERE offer_id = '66666666-6666-4666-8666-666666666666'")" = "1"
           test "$(psql "$DATABASE_URL" -Atc "SELECT visible || ':' || display_position || ':' || version FROM app.project_bucket_preferences WHERE bucket_id = '99999999-9999-4999-8999-999999999999'")" = "false:3:1"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app.approved_agent_names")" = "264"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT string_agg(display_name, ',' ORDER BY approved_name_id DESC) FROM app.agent_identities WHERE organization_id = '11111111-1111-4111-8111-111111111111'")" = "Fast Eddie Felson,Harry Wormwood"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT count(*) FROM app.agent_identities WHERE organization_id = '22222222-2222-4222-8222-222222222222'")" = "0"
+          if psql "$DATABASE_URL" --set ON_ERROR_STOP=1 -c "UPDATE app.approved_agent_names SET name = 'tampered' WHERE id = 1"; then
+            echo "immutable approved-name catalog unexpectedly changed" >&2
+            exit 1
+          fi
           if psql "$DATABASE_URL" --set ON_ERROR_STOP=1 -c "
             INSERT INTO app.organization_settings(organization_id, updated_by_membership_id)
             VALUES ('22222222-2222-4222-8222-222222222222', 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa')
@@ -283,6 +295,9 @@ jobs:
               WHERE id = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb'
               RETURNING id
           ")" = ""
+          node scripts/migrate.mjs down
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.agent_identities') IS NULL")" = "t"
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.approved_agent_names') IS NULL")" = "t"
           node scripts/migrate.mjs down
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.project_buckets') IS NULL")" = "t"
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.project_bucket_preferences') IS NULL")" = "t"
