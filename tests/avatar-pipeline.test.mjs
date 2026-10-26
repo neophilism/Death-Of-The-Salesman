@@ -10,11 +10,15 @@ import {
 } from "../packages/storage/dist/index.js";
 
 const png = (width, height) => {
-  const bytes = Buffer.alloc(24);
+  const bytes = Buffer.alloc(45);
   Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]).copy(bytes);
+  bytes.writeUInt32BE(13, 8);
   bytes.write("IHDR", 12, "ascii");
   bytes.writeUInt32BE(width, 16);
   bytes.writeUInt32BE(height, 20);
+  bytes.writeUInt32BE(0, 33);
+  bytes.write("IEND", 37, "ascii");
+  bytes.writeUInt32BE(0, 41);
   return bytes;
 };
 
@@ -127,11 +131,24 @@ test("malformed and oversized portrait headers fail before storage", async () =>
 
   await assert.rejects(
     pipeline.storePortrait({ ...request, bytes: Buffer.from("not an image") }),
-    /PNG with an IHDR header/,
+    /structurally valid PNG/,
+  );
+  const headerOnly = png(256, 256).subarray(0, 24);
+  await assert.rejects(
+    pipeline.storePortrait({ ...request, bytes: headerOnly }),
+    /structurally valid PNG/,
   );
   await assert.rejects(
     pipeline.storePortrait({ ...request, bytes: png(4096, 4096) }),
     /between 32 and 2048 pixels/,
+  );
+  await assert.rejects(
+    pipeline.storePortrait({
+      ...request,
+      bytes: png(256, 256),
+      sourceUrl: "https://example.test/actor-still.png",
+    }),
+    /remote avatar URLs are not accepted/,
   );
   assert.deepEqual(await backend.listVersions("org-one", "avatar.agent-one.image"), []);
 });
