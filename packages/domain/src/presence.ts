@@ -112,7 +112,7 @@ export const deriveAgentPresence = (input: DeriveAgentPresenceInput): AgentPrese
       "inactive",
       `Agent identity is ${input.identityStatus}`,
       input.identityUpdatedAt,
-      true,
+      input.run?.source === "persisted-run",
       input.run,
     );
   }
