@@ -556,7 +556,9 @@
       "id": "DOTS-023",
       "title": "Searchable avatar roster component",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        28
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
