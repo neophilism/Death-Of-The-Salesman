@@ -297,6 +297,8 @@ jobs:
               RETURNING id
           ")" = ""
           node scripts/migrate.mjs down
+          test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.agent_project_assignments') IS NULL")" = "t"
+          node scripts/migrate.mjs down
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.agent_identities') IS NULL")" = "t"
           test "$(psql "$DATABASE_URL" -Atc "SELECT to_regclass('app.approved_agent_names') IS NULL")" = "t"
           node scripts/migrate.mjs down
