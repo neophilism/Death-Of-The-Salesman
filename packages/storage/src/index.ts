@@ -377,12 +377,34 @@ const avatarFallback = (
 const pngDimensions = (bytes: Uint8Array): { width: number; height: number } => {
   const buffer = Buffer.from(bytes);
   if (
-    buffer.byteLength < 24 ||
+    buffer.byteLength < 45 ||
     !buffer.subarray(0, PNG_SIGNATURE.byteLength).equals(PNG_SIGNATURE) ||
+    buffer.readUInt32BE(8) !== 13 ||
     buffer.toString("ascii", 12, 16) !== "IHDR"
   ) {
-    throw new Error("avatar portrait must be a PNG with an IHDR header");
+    throw new Error("avatar portrait must be a structurally valid PNG");
   }
+
+  let offset = PNG_SIGNATURE.byteLength;
+  let hasEnd = false;
+  while (offset + 12 <= buffer.byteLength) {
+    const length = buffer.readUInt32BE(offset);
+    const next = offset + 12 + length;
+    if (!Number.isSafeInteger(next) || next > buffer.byteLength) {
+      throw new Error("avatar PNG contains a truncated chunk");
+    }
+    const type = buffer.toString("ascii", offset + 4, offset + 8);
+    if (type === "IEND") {
+      if (length !== 0 || next !== buffer.byteLength) {
+        throw new Error("avatar PNG has an invalid IEND chunk");
+      }
+      hasEnd = true;
+      break;
+    }
+    offset = next;
+  }
+  if (!hasEnd) throw new Error("avatar PNG is missing its IEND chunk");
+
   const width = buffer.readUInt32BE(16);
   const height = buffer.readUInt32BE(20);
   if (width < 32 || height < 32 || width > 2048 || height > 2048) {
@@ -454,6 +476,9 @@ export class AvatarPipeline {
     readonly rights: AvatarRightsEvidence;
     readonly displaySize?: AvatarDisplaySize;
   }): Promise<StoredAvatarPortrait> {
+    if (Object.hasOwn(input as object, "sourceUrl")) {
+      throw new Error("remote avatar URLs are not accepted; upload cleared bytes directly");
+    }
     if (!AVATAR_IDENTIFIER_PATTERN.test(input.agentIdentityId)) {
       throw new Error("agentIdentityId must be a bounded storage identifier");
     }
