@@ -506,7 +506,9 @@
       "id": "DOTS-021",
       "title": "Original avatar pipeline and rights-safe placeholders",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        25
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
