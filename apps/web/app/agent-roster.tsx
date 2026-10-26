@@ -59,7 +59,11 @@ export function AgentRoster({ agents }: Readonly<{ agents: readonly RosterAgent[
     if (!selected) return;
     closeRef.current?.focus();
     const closeOnEscape = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") setSelectedId(null);
+      if (event.key === "Escape") {
+        const index = rosterPage.items.findIndex((agent) => agent.id === selected.id);
+        setSelectedId(null);
+        requestAnimationFrame(() => itemRefs.current[index]?.focus());
+      }
     };
     globalThis.addEventListener("keydown", closeOnEscape);
     return () => globalThis.removeEventListener("keydown", closeOnEscape);
@@ -201,6 +205,12 @@ export function AgentRoster({ agents }: Readonly<{ agents: readonly RosterAgent[
             role="dialog"
             aria-modal="true"
             aria-labelledby="agent-detail-title"
+            onKeyDown={(event) => {
+              if (event.key === "Tab") {
+                event.preventDefault();
+                closeRef.current?.focus();
+              }
+            }}
           >
             <div className="agent-detail-heading">
               <div>
