@@ -290,3 +290,4 @@ export class EncryptedArtifactStore {
     }
   }
 }
+export * from "./avatar-pipeline.js";
