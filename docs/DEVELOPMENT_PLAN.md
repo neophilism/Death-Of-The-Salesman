@@ -260,7 +260,7 @@
 
 **Dependencies:** DOTS-020, DOTS-013  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #25
 
 ### DOTS-022 — Server-derived three-state agent presence
 
