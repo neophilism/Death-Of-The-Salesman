@@ -31,3 +31,4 @@ export const withTransaction = async <T>(
 };
 export * from "./project-catalog.js";
 export * from "./project-buckets.js";
+export * from "./agent-identities.js";
