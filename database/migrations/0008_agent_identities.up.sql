@@ -272,11 +272,9 @@ INSERT INTO app.approved_agent_names(id, name) VALUES
 CREATE FUNCTION app.reject_approved_agent_name_mutation()
 RETURNS trigger
 LANGUAGE plpgsql
-AS $
-BEGIN
-  RAISE EXCEPTION 'approved agent name catalog is immutable';
-END
-$;
+AS 'BEGIN
+  RAISE EXCEPTION ''approved agent name catalog is immutable'';
+END';
 
 CREATE TRIGGER approved_agent_names_immutable
 BEFORE INSERT OR UPDATE OR DELETE ON app.approved_agent_names
