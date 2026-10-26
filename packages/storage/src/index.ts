@@ -356,9 +356,11 @@ const avatarDisplayName = (value: string): string => {
 
 const monogramFor = (displayName: string): string => {
   const words = displayName.split(" ");
+  const first = words[0] ?? "";
+  const last = words.at(-1) ?? first;
   const initials = words.length === 1
-    ? words[0].slice(0, 2)
-    : `${words[0][0]}${words.at(-1)?.[0] ?? ""}`;
+    ? first.slice(0, 2)
+    : `${first[0] ?? ""}${last[0] ?? ""}`;
   return initials.toLocaleUpperCase("en-US");
 };
 
