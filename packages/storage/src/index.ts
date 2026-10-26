@@ -290,3 +290,244 @@ export class EncryptedArtifactStore {
     }
   }
 }
+
+
+export const AVATAR_DISPLAY_SIZES = Object.freeze({
+  compact: 40,
+  standard: 64,
+  profile: 96,
+} as const);
+
+export type AvatarDisplaySize = keyof typeof AVATAR_DISPLAY_SIZES;
+
+export type AvatarRightsEvidence =
+  | {
+      readonly kind: "original";
+      readonly creator: string;
+      readonly attestedByMembershipId: string;
+    }
+  | {
+      readonly kind: "user-licensed";
+      readonly licenseReference: string;
+      readonly attestedByMembershipId: string;
+    };
+
+export interface AvatarFallback {
+  readonly kind: "monogram";
+  readonly monogram: string;
+  readonly accessibleName: string;
+  readonly sizePixels: number;
+}
+
+export interface StoredAvatarPortrait {
+  readonly kind: "portrait";
+  readonly organizationId: string;
+  readonly agentIdentityId: string;
+  readonly displayName: string;
+  readonly width: number;
+  readonly height: number;
+  readonly sizePixels: number;
+  readonly image: ArtifactMetadata;
+  readonly rightsManifest: ArtifactMetadata;
+  readonly fallback: AvatarFallback;
+}
+
+export type AvatarPresentation =
+  | AvatarFallback
+  | {
+      readonly kind: "image";
+      readonly artifactId: string;
+      readonly version: number;
+      readonly accessibleName: string;
+      readonly sizePixels: number;
+      readonly fallback: AvatarFallback;
+    };
+
+const AVATAR_IDENTIFIER_PATTERN = /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,95}$/;
+const PNG_SIGNATURE = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+
+const avatarDisplayName = (value: string): string => {
+  const displayName = value.trim().replace(/\s+/g, " ");
+  if (!displayName || displayName.length > 120) {
+    throw new Error("avatar displayName must contain 1 to 120 characters");
+  }
+  return displayName;
+};
+
+const monogramFor = (displayName: string): string => {
+  const words = displayName.split(" ");
+  const first = words[0] ?? "";
+  const last = words.at(-1) ?? first;
+  const initials = words.length === 1
+    ? first.slice(0, 2)
+    : `${first[0] ?? ""}${last[0] ?? ""}`;
+  return initials.toLocaleUpperCase("en-US");
+};
+
+const avatarFallback = (
+  displayName: string,
+  size: AvatarDisplaySize,
+): AvatarFallback => Object.freeze({
+  kind: "monogram",
+  monogram: monogramFor(displayName),
+  accessibleName: `${displayName} avatar`,
+  sizePixels: AVATAR_DISPLAY_SIZES[size],
+});
+
+const pngDimensions = (bytes: Uint8Array): { width: number; height: number } => {
+  const buffer = Buffer.from(bytes);
+  if (
+    buffer.byteLength < 45 ||
+    !buffer.subarray(0, PNG_SIGNATURE.byteLength).equals(PNG_SIGNATURE) ||
+    buffer.readUInt32BE(8) !== 13 ||
+    buffer.toString("ascii", 12, 16) !== "IHDR"
+  ) {
+    throw new Error("avatar portrait must be a structurally valid PNG");
+  }
+
+  let offset = PNG_SIGNATURE.byteLength;
+  let hasEnd = false;
+  while (offset + 12 <= buffer.byteLength) {
+    const length = buffer.readUInt32BE(offset);
+    const next = offset + 12 + length;
+    if (!Number.isSafeInteger(next) || next > buffer.byteLength) {
+      throw new Error("avatar PNG contains a truncated chunk");
+    }
+    const type = buffer.toString("ascii", offset + 4, offset + 8);
+    if (type === "IEND") {
+      if (length !== 0 || next !== buffer.byteLength) {
+        throw new Error("avatar PNG has an invalid IEND chunk");
+      }
+      hasEnd = true;
+      break;
+    }
+    offset = next;
+  }
+  if (!hasEnd) throw new Error("avatar PNG is missing its IEND chunk");
+
+  const width = buffer.readUInt32BE(16);
+  const height = buffer.readUInt32BE(20);
+  if (width < 32 || height < 32 || width > 2048 || height > 2048) {
+    throw new Error("avatar portrait dimensions must be between 32 and 2048 pixels");
+  }
+  return { width, height };
+};
+
+const normalizedRights = (rights: AvatarRightsEvidence): AvatarRightsEvidence => {
+  if (typeof rights !== "object" || rights === null) {
+    throw new Error("avatar rights evidence is required");
+  }
+  if (!AVATAR_IDENTIFIER_PATTERN.test(rights.attestedByMembershipId)) {
+    throw new Error("avatar rights evidence requires a bounded attesting membership");
+  }
+  if (rights.kind === "original") {
+    const creator = rights.creator.trim();
+    if (!creator || creator.length > 160) {
+      throw new Error("original avatar rights evidence requires a bounded creator");
+    }
+    return Object.freeze({ ...rights, creator });
+  }
+  if (rights.kind === "user-licensed") {
+    const licenseReference = rights.licenseReference.trim();
+    if (!licenseReference || licenseReference.length > 240) {
+      throw new Error("licensed avatar rights evidence requires a bounded license reference");
+    }
+    return Object.freeze({ ...rights, licenseReference });
+  }
+  throw new Error("avatar portraits must be original or user-licensed");
+};
+
+export const createAvatarFallback = (
+  displayNameInput: string,
+  size: AvatarDisplaySize = "standard",
+): AvatarFallback => avatarFallback(avatarDisplayName(displayNameInput), size);
+
+export const presentAvatar = (
+  portrait: StoredAvatarPortrait | undefined,
+  imageAccessible: boolean,
+): AvatarPresentation => {
+  if (!portrait || !imageAccessible) {
+    return portrait?.fallback ?? createAvatarFallback("Unknown agent");
+  }
+  return Object.freeze({
+    kind: "image",
+    artifactId: portrait.image.artifactId,
+    version: portrait.image.version,
+    accessibleName: portrait.fallback.accessibleName,
+    sizePixels: portrait.sizePixels,
+    fallback: portrait.fallback,
+  });
+};
+
+export class AvatarPipeline {
+  readonly #store: EncryptedArtifactStore;
+
+  constructor(store: EncryptedArtifactStore) {
+    this.#store = store;
+  }
+
+  async storePortrait(input: {
+    readonly organizationId: string;
+    readonly agentIdentityId: string;
+    readonly displayName: string;
+    readonly mediaType: "image/png";
+    readonly bytes: Uint8Array;
+    readonly scan: ArtifactScanEvidence;
+    readonly rights: AvatarRightsEvidence;
+    readonly displaySize?: AvatarDisplaySize;
+  }): Promise<StoredAvatarPortrait> {
+    if (Object.hasOwn(input as object, "sourceUrl")) {
+      throw new Error("remote avatar URLs are not accepted; upload cleared bytes directly");
+    }
+    if (!AVATAR_IDENTIFIER_PATTERN.test(input.agentIdentityId)) {
+      throw new Error("agentIdentityId must be a bounded storage identifier");
+    }
+    if (input.mediaType !== "image/png") {
+      throw new Error("avatar portraits currently require image/png");
+    }
+    const displayName = avatarDisplayName(input.displayName);
+    const size = input.displaySize ?? "standard";
+    if (!(size in AVATAR_DISPLAY_SIZES)) throw new Error("unknown avatar display size");
+    const dimensions = pngDimensions(input.bytes);
+    const rights = normalizedRights(input.rights);
+    const artifactPrefix = `avatar.${input.agentIdentityId}`;
+    const image = await this.#store.put({
+      organizationId: input.organizationId,
+      artifactId: `${artifactPrefix}.image`,
+      mediaType: input.mediaType,
+      bytes: input.bytes,
+      scan: input.scan,
+    });
+    const manifestBytes = Buffer.from(JSON.stringify({
+      schemaVersion: 1,
+      organizationId: input.organizationId,
+      agentIdentityId: input.agentIdentityId,
+      imageVersion: image.version,
+      imageSha256: image.sha256,
+      mediaType: input.mediaType,
+      width: dimensions.width,
+      height: dimensions.height,
+      rights,
+    }), "utf8");
+    const rightsManifest = await this.#store.put({
+      organizationId: input.organizationId,
+      artifactId: `${artifactPrefix}.rights`,
+      mediaType: "application/json",
+      bytes: manifestBytes,
+      scan: { required: false, status: "not-required" },
+    });
+    const fallback = avatarFallback(displayName, size);
+    return Object.freeze({
+      kind: "portrait",
+      organizationId: input.organizationId,
+      agentIdentityId: input.agentIdentityId,
+      displayName,
+      width: dimensions.width,
+      height: dimensions.height,
+      sizePixels: AVATAR_DISPLAY_SIZES[size],
+      image,
+      rightsManifest,
+      fallback,
+    });
+  }
+}
