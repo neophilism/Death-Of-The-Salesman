@@ -269,6 +269,19 @@ INSERT INTO app.approved_agent_names(id, name) VALUES
   (263, 'Edward Magorium'),
   (264, 'Molly Mahoney');
 
+CREATE FUNCTION app.reject_approved_agent_name_mutation()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $
+BEGIN
+  RAISE EXCEPTION 'approved agent name catalog is immutable';
+END
+$;
+
+CREATE TRIGGER approved_agent_names_immutable
+BEFORE INSERT OR UPDATE OR DELETE ON app.approved_agent_names
+FOR EACH STATEMENT EXECUTE FUNCTION app.reject_approved_agent_name_mutation();
+
 CREATE TABLE app.agent_identities (
   id app.entity_id PRIMARY KEY DEFAULT app.new_id(),
   organization_id app.entity_id NOT NULL REFERENCES app.organizations(id) ON DELETE CASCADE,

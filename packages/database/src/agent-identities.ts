@@ -179,6 +179,7 @@ export class AgentIdentityRepository {
   }): Promise<AgentIdentity[]> {
     if (!input.privateDemo) return [];
     const approvedNameIds = initialDemoIdentities.map(({ approvedName }) => this.approvedNameId(approvedName));
+    const approvedNames = initialDemoIdentities.map(({ approvedName }) => approvedName);
     const ids = initialDemoIdentities.map(() => randomUUID());
     const displayNames = initialDemoIdentities.map(({ displayName }) => displayName);
     return this.inTenant(input.organizationId, async (tx) => {
@@ -187,14 +188,16 @@ export class AgentIdentityRepository {
           id, organization_id, approved_name_id, display_name, updated_by_membership_id
         )
         SELECT seed.id, $1, names.id, seed.display_name, memberships.id
-        FROM unnest($3::uuid[], $4::smallint[], $5::text[]) AS seed(id, approved_name_id, display_name)
-        JOIN app.approved_agent_names AS names ON names.id = seed.approved_name_id
+        FROM unnest($3::uuid[], $4::smallint[], $5::text[], $6::text[])
+          AS seed(id, approved_name_id, approved_name, display_name)
+        JOIN app.approved_agent_names AS names
+          ON names.id = seed.approved_name_id AND names.name = seed.approved_name
         JOIN app.memberships ON memberships.id = $2
           AND memberships.organization_id = $1
           AND memberships.role = 'owner'
           AND memberships.status = 'active'
         ON CONFLICT (organization_id, approved_name_id) DO NOTHING`,
-        [input.organizationId, input.ownerMembershipId, ids, approvedNameIds, displayNames],
+        [input.organizationId, input.ownerMembershipId, ids, approvedNameIds, approvedNames, displayNames],
       );
       const result = resultOf(await tx.query(
         `SELECT identities.id, identities.organization_id, identities.approved_name_id,

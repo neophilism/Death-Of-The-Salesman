@@ -72,6 +72,7 @@ test("private-demo seeding is explicit, idempotent, and limited to the first two
   const identities = await repository.seedPrivateDemo({ organizationId, ownerMembershipId, privateDemo: true });
   assert.deepEqual(identities.map(({ displayName }) => displayName), ["Fast Eddie Felson", "Harry Wormwood"]);
   assert.deepEqual(values.find((parameters) => Array.isArray(parameters[3]))?.[3], [98, 59]);
+  assert.deepEqual(values.find((parameters) => Array.isArray(parameters[4]))?.[4], ['"Fast Eddie" Felson', "Harry Wormwood"]);
   const readback = statements.find((statement) => statement.includes("ORDER BY array_position"));
   assert.match(readback ?? "", /memberships\.id = \$3/);
   assert.match(readback ?? "", /memberships\.role = 'owner'/);
