@@ -431,7 +431,9 @@
       "id": "DOTS-018",
       "title": "Project/offer CRUD and fact versioning",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        22
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
