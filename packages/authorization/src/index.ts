@@ -125,6 +125,10 @@ const endpointScopes = [
   { method: "GET", pattern: /^\/api\/v1\/projects(?:\/[^/]+)?$/, scope: "projects:read" },
   { method: "POST", pattern: /^\/api\/v1\/projects$/, scope: "projects:write" },
   { method: "PATCH", pattern: /^\/api\/v1\/projects\/[^/]+$/, scope: "projects:write" },
+  { method: "GET", pattern: /^\/api\/v1\/projects\/[^/]+\/(?:offers|pricing-summaries|product-facts)(?:\/[^/]+)?$/, scope: "projects:read" },
+  { method: "POST", pattern: /^\/api\/v1\/projects\/[^/]+\/(?:offers|pricing-summaries|product-facts)$/, scope: "projects:write" },
+  { method: "PATCH", pattern: /^\/api\/v1\/projects\/[^/]+\/(?:offers|pricing-summaries|product-facts)\/[^/]+$/, scope: "projects:write" },
+  { method: "POST", pattern: /^\/api\/v1\/projects\/[^/]+(?:\/(?:offers|pricing-summaries|product-facts)\/[^/]+)?\/archive$/, scope: "projects:write" },
   { method: "GET", pattern: /^\/api\/v1\/contacts(?:\/[^/]+)?$/, scope: "contacts:read" },
   { method: "POST", pattern: /^\/api\/v1\/contacts$/, scope: "contacts:write" },
   { method: "PATCH", pattern: /^\/api\/v1\/contacts\/[^/]+$/, scope: "contacts:write" },
@@ -227,7 +231,7 @@ export function authorizeEndpoint(input: {
   );
   if (!route) throw new AuthorizationError("UNKNOWN_ENDPOINT");
 
-  const projectPathId = input.path.match(/^\/api\/v1\/projects\/([^/]+)$/)?.[1];
+  const projectPathId = input.path.match(/^\/api\/v1\/projects\/([^/]+)/)?.[1];
   const contactPathId = input.path.match(/^\/api\/v1\/contacts\/([^/]+)$/)?.[1];
   if (
     (projectPathId && input.resource?.projectId && projectPathId !== input.resource.projectId) ||

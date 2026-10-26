@@ -267,3 +267,21 @@ test("agent selectors must match the requested scope type", () => {
     denied("RESOURCE_DENIED"),
   );
 });
+
+test("project child CRUD routes retain tenant and write-scope enforcement", () => {
+  assert.equal(authorizeEndpoint({
+    principal: human("owner"), organizationId: "org-1", method: "PATCH",
+    path: "/api/v1/projects/project-1/offers/offer-1",
+    resource: { projectId: "project-1" }, now,
+  }).scope, "projects:write");
+  assert.throws(() => authorizeEndpoint({
+    principal: agent(), organizationId: "org-1", method: "POST",
+    path: "/api/v1/projects/project-1/product-facts/fact-1/archive",
+    resource: { projectId: "project-1" }, now,
+  }), denied("UNAUTHORIZED"));
+  assert.throws(() => authorizeEndpoint({
+    principal: human("owner"), organizationId: "org-2", method: "POST",
+    path: "/api/v1/projects/project-1/offers",
+    resource: { projectId: "project-1" }, now,
+  }), denied("CROSS_TENANT"));
+});

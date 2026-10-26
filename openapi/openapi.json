@@ -5,25 +5,381 @@
     "version": "2026-10-01",
     "description": "Versioned shared data contracts. Authorization, spend and dispatch are separate server-side gates."
   },
-  "paths": {},
+  "paths": {
+    "/api/v1/projects": {
+      "get": {
+        "summary": "List projects for the authenticated organization",
+        "responses": {
+          "200": {
+            "description": "Tenant project list"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a project as an authorized owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}": {
+      "get": {
+        "summary": "Reload one tenant project",
+        "responses": {
+          "200": {
+            "description": "Project"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Edit one exact project version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/offers": {
+      "get": {
+        "summary": "List offers for one tenant project",
+        "responses": {
+          "200": {
+            "description": "Tenant collection"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create offers record as an authorized owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/offers/{itemId}": {
+      "get": {
+        "summary": "Reload one offers record",
+        "responses": {
+          "200": {
+            "description": "Record"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Edit one exact offers version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/offers/{itemId}/archive": {
+      "post": {
+        "summary": "Archive one exact offers version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogArchive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archived"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/pricing-summaries": {
+      "get": {
+        "summary": "List pricing-summaries for one tenant project",
+        "responses": {
+          "200": {
+            "description": "Tenant collection"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create pricing-summaries record as an authorized owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/pricing-summaries/{itemId}": {
+      "get": {
+        "summary": "Reload one pricing-summaries record",
+        "responses": {
+          "200": {
+            "description": "Record"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Edit one exact pricing-summaries version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/pricing-summaries/{itemId}/archive": {
+      "post": {
+        "summary": "Archive one exact pricing-summaries version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogArchive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archived"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/product-facts": {
+      "get": {
+        "summary": "List product-facts for one tenant project",
+        "responses": {
+          "200": {
+            "description": "Tenant collection"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create product-facts record as an authorized owner",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/product-facts/{itemId}": {
+      "get": {
+        "summary": "Reload one product-facts record",
+        "responses": {
+          "200": {
+            "description": "Record"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Edit one exact product-facts version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/product-facts/{itemId}/archive": {
+      "post": {
+        "summary": "Archive one exact product-facts version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogArchive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archived"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{projectId}/archive": {
+      "post": {
+        "summary": "Archive one exact project version",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/catalogArchive"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Archived"
+          },
+          "409": {
+            "description": "Missing, archived, or stale"
+          }
+        }
+      }
+    }
+  },
   "components": {
     "schemas": {
       "project": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "project" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "project"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "name", "status"],
+            "required": [
+              "id",
+              "organizationId",
+              "name",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "name": { "type": "string", "minLength": 1 },
-              "status": { "enum": ["active", "archived"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "archived"
+                ]
+              }
             }
           }
         }
@@ -31,19 +387,46 @@
       "agent": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "agent" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "agent"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "name", "status"],
+            "required": [
+              "id",
+              "organizationId",
+              "name",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "name": { "type": "string", "minLength": 1 },
-              "status": { "enum": ["active", "inactive"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "inactive"
+                ]
+              }
             }
           }
         }
@@ -51,19 +434,48 @@
       "campaign": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "campaign" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "campaign"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "projectId", "name", "status"],
+            "required": [
+              "id",
+              "projectId",
+              "name",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "projectId": { "type": "string", "minLength": 1 },
-              "name": { "type": "string", "minLength": 1 },
-              "status": { "enum": ["draft", "active", "paused", "completed"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "projectId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "draft",
+                  "active",
+                  "paused",
+                  "completed"
+                ]
+              }
             }
           }
         }
@@ -71,19 +483,47 @@
       "contact": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "contact" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "contact"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "displayName", "status"],
+            "required": [
+              "id",
+              "organizationId",
+              "displayName",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "displayName": { "type": "string", "minLength": 1 },
-              "status": { "enum": ["active", "suppressed", "archived"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "displayName": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "active",
+                  "suppressed",
+                  "archived"
+                ]
+              }
             }
           }
         }
@@ -91,19 +531,52 @@
       "workItem": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "workItem" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "workItem"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "projectId", "assigneeAgentId", "status"],
+            "required": [
+              "id",
+              "projectId",
+              "assigneeAgentId",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "projectId": { "type": "string", "minLength": 1 },
-              "assigneeAgentId": { "type": ["string", "null"], "minLength": 1 },
-              "status": { "enum": ["queued", "running", "waiting", "completed", "failed"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "projectId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "assigneeAgentId": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "queued",
+                  "running",
+                  "waiting",
+                  "completed",
+                  "failed"
+                ]
+              }
             }
           }
         }
@@ -111,19 +584,44 @@
       "event": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "event" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "event"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "type", "occurredAt"],
+            "required": [
+              "id",
+              "organizationId",
+              "type",
+              "occurredAt"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "type": { "type": "string", "minLength": 1 },
-              "occurredAt": { "type": "string", "format": "date-time" }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": {
+                "type": "string",
+                "minLength": 1
+              },
+              "occurredAt": {
+                "type": "string",
+                "format": "date-time"
+              }
             }
           }
         }
@@ -131,19 +629,49 @@
       "approval": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "approval" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "approval"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "action", "status"],
+            "required": [
+              "id",
+              "organizationId",
+              "action",
+              "status"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "action": { "type": "string", "minLength": 1 },
-              "status": { "enum": ["pending", "approved", "rejected", "expired", "consumed"] }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "action": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "approved",
+                  "rejected",
+                  "expired",
+                  "consumed"
+                ]
+              }
             }
           }
         }
@@ -151,19 +679,48 @@
       "usage": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "usage" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "usage"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "organizationId", "unit", "quantity"],
+            "required": [
+              "id",
+              "organizationId",
+              "unit",
+              "quantity"
+            ],
             "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "organizationId": { "type": "string", "minLength": 1 },
-              "unit": { "enum": ["request", "token", "cent", "byte"] },
-              "quantity": { "type": "integer", "minimum": 0 }
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "organizationId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "unit": {
+                "enum": [
+                  "request",
+                  "token",
+                  "cent",
+                  "byte"
+                ]
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 0
+              }
             }
           }
         }
@@ -171,19 +728,139 @@
       "error": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["schemaVersion", "kind", "data"],
+        "required": [
+          "schemaVersion",
+          "kind",
+          "data"
+        ],
         "properties": {
-          "schemaVersion": { "const": "2026-10-01" },
-          "kind": { "const": "error" },
+          "schemaVersion": {
+            "const": "2026-10-01"
+          },
+          "kind": {
+            "const": "error"
+          },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["code", "message", "retryable"],
+            "required": [
+              "code",
+              "message",
+              "retryable"
+            ],
             "properties": {
-              "code": { "type": "string", "minLength": 1 },
-              "message": { "type": "string", "minLength": 1 },
-              "retryable": { "type": "boolean" }
+              "code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "message": {
+                "type": "string",
+                "minLength": 1
+              },
+              "retryable": {
+                "type": "boolean"
+              }
             }
+          }
+        }
+      },
+      "catalogWrite": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "content",
+          "expectedVersion"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "content": {
+            "type": "object"
+          },
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "catalogArchive": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedVersion"
+        ],
+        "properties": {
+          "expectedVersion": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "catalogRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "organizationId",
+          "kind",
+          "projectId",
+          "offerId",
+          "label",
+          "content",
+          "status",
+          "version",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "project",
+              "offer",
+              "pricingSummary",
+              "productFact"
+            ]
+          },
+          "projectId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "offerId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "content": {
+            "type": "object"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "archived"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }
