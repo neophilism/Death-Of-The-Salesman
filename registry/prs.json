@@ -11,7 +11,7 @@
   ],
   "schemaVersion": 1,
   "roadmapVersion": 1,
-  "observedAt": "2026-10-18T16:53:39Z",
+  "observedAt": "2026-10-26T10:18:26Z",
   "units": [
     {
       "id": "DOTS-001",
@@ -582,7 +582,9 @@
       "id": "DOTS-024",
       "title": "Hover/focus/tap agent detail preview",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        31
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
