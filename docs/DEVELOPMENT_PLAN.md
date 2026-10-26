@@ -270,7 +270,7 @@
 
 **Dependencies:** DOTS-020, DOTS-006  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #27
 
 ### DOTS-023 — Searchable avatar roster component
 
