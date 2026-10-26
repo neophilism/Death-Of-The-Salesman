@@ -16,7 +16,7 @@ const rosterAgents: readonly RosterAgent[] = [
     role: "Synthetic sales strategist",
     assignedModel: "Not assigned",
     status: "waiting",
-    statusLabel: "Waiting",
+    statusLabel: "Waiting — no provider",
     availability: "No provider or campaign assigned",
   },
   {
@@ -25,7 +25,7 @@ const rosterAgents: readonly RosterAgent[] = [
     role: "Synthetic fundraising researcher",
     assignedModel: "Not assigned",
     status: "inactive",
-    statusLabel: "Inactive",
+    statusLabel: "Inactive — dispatch disabled",
     availability: "Outbound actions disabled",
   },
 ];
