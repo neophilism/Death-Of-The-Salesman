@@ -28,7 +28,7 @@ export type RosterAgent = {
 };
 
 export type RosterPage = { readonly items: readonly RosterAgent[]; readonly page: number; readonly pageCount: number; readonly total: number; };
-const normalized = (value: string): string => value.trim().toLocaleLowerCase("en-US");
+const normalized = (value: string | undefined): string => value?.trim().toLocaleLowerCase("en-US") ?? "";
 
 export const verifiedRosterEvents = (events: readonly RosterEvent[]): readonly RosterEvent[] => Object.freeze(
   events.filter((event) => event.verified === true && event.source === "persisted-run"),
