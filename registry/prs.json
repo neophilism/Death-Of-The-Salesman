@@ -531,7 +531,9 @@
       "id": "DOTS-022",
       "title": "Server-derived three-state agent presence",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        27
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [
