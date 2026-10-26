@@ -300,7 +300,7 @@
 
 **Dependencies:** DOTS-020, DOTS-018, DOTS-010  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #29
 
 ### DOTS-026 — Desktop visual drag-and-drop deployment board
 
