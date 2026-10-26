@@ -26,8 +26,7 @@
                 "additionalProperties": false,
                 "required": [
                   "label",
-                  "content",
-                  "expectedVersion"
+                  "content"
                 ],
                 "properties": {
                   "label": {
@@ -37,10 +36,6 @@
                   },
                   "content": {
                     "type": "object"
-                  },
-                  "expectedVersion": {
-                    "type": "integer",
-                    "minimum": 1
                   }
                 }
               }
@@ -55,6 +50,16 @@
       }
     },
     "/api/v1/projects/{projectId}": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Reload one tenant project",
         "responses": {
@@ -106,6 +111,16 @@
       }
     },
     "/api/v1/projects/{projectId}/offers": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "List tenant offers",
         "responses": {
@@ -125,8 +140,7 @@
                 "additionalProperties": false,
                 "required": [
                   "label",
-                  "content",
-                  "expectedVersion"
+                  "content"
                 ],
                 "properties": {
                   "label": {
@@ -136,10 +150,6 @@
                   },
                   "content": {
                     "type": "object"
-                  },
-                  "expectedVersion": {
-                    "type": "integer",
-                    "minimum": 1
                   }
                 }
               }
@@ -154,6 +164,24 @@
       }
     },
     "/api/v1/projects/{projectId}/offers/{itemId}": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Reload one offers record",
         "responses": {
@@ -205,6 +233,24 @@
       }
     },
     "/api/v1/projects/{projectId}/offers/{itemId}/archive": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "post": {
         "summary": "Archive one exact offers version",
         "requestBody": {
@@ -238,6 +284,16 @@
       }
     },
     "/api/v1/projects/{projectId}/pricing-summaries": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "List tenant pricing-summaries",
         "responses": {
@@ -257,8 +313,7 @@
                 "additionalProperties": false,
                 "required": [
                   "label",
-                  "content",
-                  "expectedVersion"
+                  "content"
                 ],
                 "properties": {
                   "label": {
@@ -268,10 +323,6 @@
                   },
                   "content": {
                     "type": "object"
-                  },
-                  "expectedVersion": {
-                    "type": "integer",
-                    "minimum": 1
                   }
                 }
               }
@@ -286,6 +337,24 @@
       }
     },
     "/api/v1/projects/{projectId}/pricing-summaries/{itemId}": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Reload one pricing-summaries record",
         "responses": {
@@ -337,6 +406,24 @@
       }
     },
     "/api/v1/projects/{projectId}/pricing-summaries/{itemId}/archive": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "post": {
         "summary": "Archive one exact pricing-summaries version",
         "requestBody": {
@@ -370,6 +457,16 @@
       }
     },
     "/api/v1/projects/{projectId}/product-facts": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "List tenant product-facts",
         "responses": {
@@ -389,8 +486,7 @@
                 "additionalProperties": false,
                 "required": [
                   "label",
-                  "content",
-                  "expectedVersion"
+                  "content"
                 ],
                 "properties": {
                   "label": {
@@ -400,10 +496,6 @@
                   },
                   "content": {
                     "type": "object"
-                  },
-                  "expectedVersion": {
-                    "type": "integer",
-                    "minimum": 1
                   }
                 }
               }
@@ -418,6 +510,24 @@
       }
     },
     "/api/v1/projects/{projectId}/product-facts/{itemId}": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "get": {
         "summary": "Reload one product-facts record",
         "responses": {
@@ -469,6 +579,24 @@
       }
     },
     "/api/v1/projects/{projectId}/product-facts/{itemId}/archive": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "itemId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "post": {
         "summary": "Archive one exact product-facts version",
         "requestBody": {
@@ -502,6 +630,16 @@
       }
     },
     "/api/v1/projects/{projectId}/archive": {
+      "parameters": [
+        {
+          "name": "projectId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
       "post": {
         "summary": "Archive one exact project version",
         "requestBody": {
