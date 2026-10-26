@@ -230,7 +230,7 @@
 
 **Dependencies:** DOTS-007, DOTS-010  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #22
 
 ### DOTS-019 — Project bucket selection and persistence
 

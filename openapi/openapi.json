@@ -8,10 +8,10 @@
   "paths": {
     "/api/v1/projects": {
       "get": {
-        "summary": "List projects for the authenticated organization",
+        "summary": "List tenant projects",
         "responses": {
           "200": {
-            "description": "Tenant project list"
+            "description": "Project list"
           }
         }
       },
@@ -22,7 +22,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -50,7 +70,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -67,21 +107,41 @@
     },
     "/api/v1/projects/{projectId}/offers": {
       "get": {
-        "summary": "List offers for one tenant project",
+        "summary": "List tenant offers",
         "responses": {
           "200": {
-            "description": "Tenant collection"
+            "description": "Record list"
           }
         }
       },
       "post": {
-        "summary": "Create offers record as an authorized owner",
+        "summary": "Create offers as an authorized owner",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -109,7 +169,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -132,7 +212,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogArchive"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -149,21 +239,41 @@
     },
     "/api/v1/projects/{projectId}/pricing-summaries": {
       "get": {
-        "summary": "List pricing-summaries for one tenant project",
+        "summary": "List tenant pricing-summaries",
         "responses": {
           "200": {
-            "description": "Tenant collection"
+            "description": "Record list"
           }
         }
       },
       "post": {
-        "summary": "Create pricing-summaries record as an authorized owner",
+        "summary": "Create pricing-summaries as an authorized owner",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -191,7 +301,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -214,7 +344,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogArchive"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -231,21 +371,41 @@
     },
     "/api/v1/projects/{projectId}/product-facts": {
       "get": {
-        "summary": "List product-facts for one tenant project",
+        "summary": "List tenant product-facts",
         "responses": {
           "200": {
-            "description": "Tenant collection"
+            "description": "Record list"
           }
         }
       },
       "post": {
-        "summary": "Create product-facts record as an authorized owner",
+        "summary": "Create product-facts as an authorized owner",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -273,7 +433,27 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogWrite"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "label",
+                  "content",
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 240
+                  },
+                  "content": {
+                    "type": "object"
+                  },
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -296,7 +476,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogArchive"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -319,7 +509,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/catalogArchive"
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "expectedVersion"
+                ],
+                "properties": {
+                  "expectedVersion": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
               }
             }
           }
@@ -340,46 +540,19 @@
       "project": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "project"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "project" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "name",
-              "status"
-            ],
+            "required": ["id", "organizationId", "name", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "name": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "active",
-                  "archived"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "status": { "enum": ["active", "archived"] }
             }
           }
         }
@@ -387,46 +560,19 @@
       "agent": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "agent"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "agent" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "name",
-              "status"
-            ],
+            "required": ["id", "organizationId", "name", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "name": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "active",
-                  "inactive"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "status": { "enum": ["active", "inactive"] }
             }
           }
         }
@@ -434,48 +580,19 @@
       "campaign": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "campaign"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "campaign" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "projectId",
-              "name",
-              "status"
-            ],
+            "required": ["id", "projectId", "name", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "projectId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "name": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "draft",
-                  "active",
-                  "paused",
-                  "completed"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "projectId": { "type": "string", "minLength": 1 },
+              "name": { "type": "string", "minLength": 1 },
+              "status": { "enum": ["draft", "active", "paused", "completed"] }
             }
           }
         }
@@ -483,47 +600,19 @@
       "contact": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "contact"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "contact" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "displayName",
-              "status"
-            ],
+            "required": ["id", "organizationId", "displayName", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "displayName": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "active",
-                  "suppressed",
-                  "archived"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "displayName": { "type": "string", "minLength": 1 },
+              "status": { "enum": ["active", "suppressed", "archived"] }
             }
           }
         }
@@ -531,52 +620,19 @@
       "workItem": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "workItem"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "workItem" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "projectId",
-              "assigneeAgentId",
-              "status"
-            ],
+            "required": ["id", "projectId", "assigneeAgentId", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "projectId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "assigneeAgentId": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "queued",
-                  "running",
-                  "waiting",
-                  "completed",
-                  "failed"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "projectId": { "type": "string", "minLength": 1 },
+              "assigneeAgentId": { "type": ["string", "null"], "minLength": 1 },
+              "status": { "enum": ["queued", "running", "waiting", "completed", "failed"] }
             }
           }
         }
@@ -584,44 +640,19 @@
       "event": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "event"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "event" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "type",
-              "occurredAt"
-            ],
+            "required": ["id", "organizationId", "type", "occurredAt"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "type": {
-                "type": "string",
-                "minLength": 1
-              },
-              "occurredAt": {
-                "type": "string",
-                "format": "date-time"
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "type": { "type": "string", "minLength": 1 },
+              "occurredAt": { "type": "string", "format": "date-time" }
             }
           }
         }
@@ -629,49 +660,19 @@
       "approval": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "approval"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "approval" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "action",
-              "status"
-            ],
+            "required": ["id", "organizationId", "action", "status"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "action": {
-                "type": "string",
-                "minLength": 1
-              },
-              "status": {
-                "enum": [
-                  "pending",
-                  "approved",
-                  "rejected",
-                  "expired",
-                  "consumed"
-                ]
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "action": { "type": "string", "minLength": 1 },
+              "status": { "enum": ["pending", "approved", "rejected", "expired", "consumed"] }
             }
           }
         }
@@ -679,48 +680,19 @@
       "usage": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "usage"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "usage" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "id",
-              "organizationId",
-              "unit",
-              "quantity"
-            ],
+            "required": ["id", "organizationId", "unit", "quantity"],
             "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "organizationId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "unit": {
-                "enum": [
-                  "request",
-                  "token",
-                  "cent",
-                  "byte"
-                ]
-              },
-              "quantity": {
-                "type": "integer",
-                "minimum": 0
-              }
+              "id": { "type": "string", "minLength": 1 },
+              "organizationId": { "type": "string", "minLength": 1 },
+              "unit": { "enum": ["request", "token", "cent", "byte"] },
+              "quantity": { "type": "integer", "minimum": 0 }
             }
           }
         }
@@ -728,139 +700,19 @@
       "error": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "schemaVersion",
-          "kind",
-          "data"
-        ],
+        "required": ["schemaVersion", "kind", "data"],
         "properties": {
-          "schemaVersion": {
-            "const": "2026-10-01"
-          },
-          "kind": {
-            "const": "error"
-          },
+          "schemaVersion": { "const": "2026-10-01" },
+          "kind": { "const": "error" },
           "data": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "code",
-              "message",
-              "retryable"
-            ],
+            "required": ["code", "message", "retryable"],
             "properties": {
-              "code": {
-                "type": "string",
-                "minLength": 1
-              },
-              "message": {
-                "type": "string",
-                "minLength": 1
-              },
-              "retryable": {
-                "type": "boolean"
-              }
+              "code": { "type": "string", "minLength": 1 },
+              "message": { "type": "string", "minLength": 1 },
+              "retryable": { "type": "boolean" }
             }
-          }
-        }
-      },
-      "catalogWrite": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "label",
-          "content",
-          "expectedVersion"
-        ],
-        "properties": {
-          "label": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 240
-          },
-          "content": {
-            "type": "object"
-          },
-          "expectedVersion": {
-            "type": "integer",
-            "minimum": 1
-          }
-        }
-      },
-      "catalogArchive": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "expectedVersion"
-        ],
-        "properties": {
-          "expectedVersion": {
-            "type": "integer",
-            "minimum": 1
-          }
-        }
-      },
-      "catalogRecord": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "id",
-          "organizationId",
-          "kind",
-          "projectId",
-          "offerId",
-          "label",
-          "content",
-          "status",
-          "version",
-          "updatedAt"
-        ],
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "organizationId": {
-            "type": "string"
-          },
-          "kind": {
-            "enum": [
-              "project",
-              "offer",
-              "pricingSummary",
-              "productFact"
-            ]
-          },
-          "projectId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "offerId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "label": {
-            "type": "string"
-          },
-          "content": {
-            "type": "object"
-          },
-          "status": {
-            "enum": [
-              "active",
-              "archived"
-            ]
-          },
-          "version": {
-            "type": "integer",
-            "minimum": 1
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       }
