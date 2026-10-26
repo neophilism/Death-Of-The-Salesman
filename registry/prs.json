@@ -456,7 +456,9 @@
       "id": "DOTS-019",
       "title": "Project bucket selection and persistence",
       "origin": "original",
-      "prs": [],
+      "prs": [
+        23
+      ],
       "phase": "F2",
       "priority": "P0",
       "dependsOn": [

@@ -240,7 +240,7 @@
 
 **Dependencies:** DOTS-018  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #23
 
 ### DOTS-020 — Agent identity CRUD and approved names
 
