@@ -250,7 +250,7 @@
 
 **Dependencies:** DOTS-007, DOTS-008, DOTS-012  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #24
 
 ### DOTS-021 — Original avatar pipeline and rights-safe placeholders
 
