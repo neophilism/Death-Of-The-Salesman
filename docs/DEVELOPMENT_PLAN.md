@@ -280,7 +280,7 @@
 
 **Dependencies:** DOTS-016, DOTS-022, DOTS-021  
 **External prerequisites:** None  
-**Priority:** P0 · **GitHub PRs:** none created (planned only)
+**Priority:** P0 · **GitHub PRs:** #28
 
 ### DOTS-024 — Hover/focus/tap agent detail preview
 

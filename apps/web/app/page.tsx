@@ -1,13 +1,34 @@
 import {
   AccessiblePopover,
-  AgentCard,
   CommandButton,
   LoadingSkeleton,
   MetricBars,
   OverlayPanel,
   StatusChip,
 } from "./ui-primitives";
+import { AgentRoster, type RosterAgent } from "./agent-roster";
 import { WorkspaceNavigation } from "./workspace-navigation";
+
+const rosterAgents: readonly RosterAgent[] = [
+  {
+    id: "agent-fast-eddie-felson",
+    name: "Fast Eddie Felson",
+    role: "Synthetic sales strategist",
+    assignedModel: "Not assigned",
+    status: "waiting",
+    statusLabel: "Waiting — no provider",
+    availability: "No provider or campaign assigned",
+  },
+  {
+    id: "agent-harry-wormwood",
+    name: "Harry Wormwood",
+    role: "Synthetic fundraising researcher",
+    assignedModel: "Not assigned",
+    status: "inactive",
+    statusLabel: "Inactive — dispatch disabled",
+    availability: "Outbound actions disabled",
+  },
+];
 
 const services = [
   { name: "Web console", status: "Ready", state: "ready" },
@@ -34,33 +55,18 @@ export default function Home() {
       <section className="primitive-section" aria-labelledby="agents-heading">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Avatar cards</p>
-            <h2 id="agents-heading">Agent assignment preview</h2>
+            <p className="eyebrow">Agent roster</p>
+            <h2 id="agents-heading">Search and inspect agents</h2>
           </div>
           <AccessiblePopover label="Status definitions">
             <dl className="definition-list">
-              <div><dt>Ready</dt><dd>Verified recent evidence exists.</dd></div>
+              <div><dt>Running</dt><dd>A live lease and fresh heartbeat are verified.</dd></div>
               <div><dt>Waiting</dt><dd>A named prerequisite is still pending.</dd></div>
               <div><dt>Inactive</dt><dd>No worker or outbound activity is running.</dd></div>
             </dl>
           </AccessiblePopover>
         </div>
-        <div className="agent-grid">
-          <AgentCard
-            name="Fast Eddie Felson"
-            role="Synthetic sales strategist"
-            summary="Preview identity only. No provider, campaign, or contact is assigned."
-            status="waiting"
-            statusLabel="Waiting — no provider"
-          />
-          <AgentCard
-            name="Harry Wormwood"
-            role="Synthetic fundraising researcher"
-            summary="Preview identity only. Outbound actions remain disabled."
-            status="inactive"
-            statusLabel="Inactive — dispatch disabled"
-          />
-        </div>
+        <AgentRoster agents={rosterAgents} />
       </section>
 
       <section className="primitive-grid" aria-label="Chart, loading, and overlay primitives">
