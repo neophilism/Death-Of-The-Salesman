@@ -202,10 +202,14 @@ export class AgentIdentityRepository {
           identities.version, identities.updated_at
         FROM app.agent_identities AS identities
         JOIN app.approved_agent_names AS names ON names.id = identities.approved_name_id
+        JOIN app.memberships ON memberships.id = $3
+          AND memberships.organization_id = $1
+          AND memberships.role = 'owner'
+          AND memberships.status = 'active'
         WHERE identities.organization_id = $1
           AND identities.approved_name_id = ANY($2::smallint[])
         ORDER BY array_position($2::smallint[], identities.approved_name_id)`,
-        [input.organizationId, approvedNameIds],
+        [input.organizationId, approvedNameIds, input.ownerMembershipId],
       ));
       if ((result.rows ?? []).length !== 2) throw new AgentIdentityWriteError("NOT_FOUND_OR_STALE");
       return (result.rows ?? []).map(identityOf);

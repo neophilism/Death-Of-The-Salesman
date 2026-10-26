@@ -53,6 +53,7 @@ test("commercial tenants remain empty without explicit private-demo seeding", as
 
 test("private-demo seeding is explicit, idempotent, and limited to the first two identities", async () => {
   const values = [];
+  const statements = [];
   const responses = [
     {}, {}, {},
     { rows: [row(), row({
@@ -63,13 +64,17 @@ test("private-demo seeding is explicit, idempotent, and limited to the first two
     })] },
     {},
   ];
-  const repository = new AgentIdentityRepository({ query: async (_statement, parameters = []) => {
+  const repository = new AgentIdentityRepository({ query: async (statement, parameters = []) => {
+    statements.push(statement);
     values.push([...parameters]);
     return responses.shift() ?? {};
   } }, approvedNames);
   const identities = await repository.seedPrivateDemo({ organizationId, ownerMembershipId, privateDemo: true });
   assert.deepEqual(identities.map(({ displayName }) => displayName), ["Fast Eddie Felson", "Harry Wormwood"]);
   assert.deepEqual(values.find((parameters) => Array.isArray(parameters[3]))?.[3], [98, 59]);
+  const readback = statements.find((statement) => statement.includes("ORDER BY array_position"));
+  assert.match(readback ?? "", /memberships\.id = \$3/);
+  assert.match(readback ?? "", /memberships\.role = 'owner'/);
 });
 
 test("updates require an exact live version and stale writes fail closed", async () => {
