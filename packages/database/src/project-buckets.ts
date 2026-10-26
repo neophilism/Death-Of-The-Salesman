@@ -10,7 +10,7 @@ export type ProjectBucket = {
   defaultPosition: number;
   visible: boolean;
   position: number;
-  version: number;
+  preferenceVersion: number | null;
 };
 
 export class ProjectBucketWriteError extends Error {
@@ -51,7 +51,9 @@ const bucketOf = (value: unknown): ProjectBucket => {
     defaultPosition: Number(row.default_position),
     visible: row.visible === undefined ? true : Boolean(row.visible),
     position: Number(row.position ?? row.default_position),
-    version: Number(row.version),
+    preferenceVersion: row.preference_version === null || row.preference_version === undefined
+      ? null
+      : Number(row.preference_version),
   };
 };
 
@@ -96,7 +98,8 @@ export class ProjectBucketRepository {
           AND projects.organization_id = $2
           AND projects.status = 'active'
         RETURNING id, organization_id, project_id, campaign_id, label,
-          default_position, default_position AS position, true AS visible, version`,
+          default_position, default_position AS position, true AS visible,
+          NULL::bigint AS preference_version`,
         [id, input.organizationId, input.projectId, input.campaignId ?? null, label, position, input.ownerMembershipId],
       ));
       const row = result.rows?.[0];
@@ -112,7 +115,7 @@ export class ProjectBucketRepository {
           buckets.label, buckets.default_position,
           COALESCE(preferences.visible, true) AS visible,
           COALESCE(preferences.display_position, buckets.default_position) AS position,
-          COALESCE(preferences.version, buckets.version) AS version
+          preferences.version AS preference_version
         FROM app.memberships
         JOIN app.project_buckets AS buckets ON buckets.organization_id = memberships.organization_id
         LEFT JOIN app.project_bucket_preferences AS preferences
@@ -170,7 +173,7 @@ export class ProjectBucketRepository {
       const loaded = resultOf(await tx.query(
         `SELECT buckets.id, buckets.organization_id, buckets.project_id, buckets.campaign_id,
           buckets.label, buckets.default_position, preference.visible,
-          preference.display_position AS position, preference.version
+          preference.display_position AS position, preference.version AS preference_version
         FROM app.project_bucket_preferences AS preference
         JOIN app.project_buckets AS buckets
           ON buckets.organization_id = preference.organization_id

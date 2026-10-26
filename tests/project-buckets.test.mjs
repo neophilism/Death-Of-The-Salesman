@@ -19,7 +19,7 @@ const row = (overrides = {}) => ({
   default_position: 0,
   visible: true,
   position: 0,
-  version: 1,
+  preference_version: null,
   ...overrides,
 });
 
@@ -52,7 +52,7 @@ test("lists owner preferences with visible defaults and deterministic order", as
 
 test("visibility updates only the preference row and preserves bucket-backed work", async () => {
   const statements = [];
-  const responses = [{}, {}, { rows: [{ bucket_id: bucketId }] }, { rows: [row({ visible: false, position: 4, version: 2 })] }, {}];
+  const responses = [{}, {}, { rows: [{ bucket_id: bucketId }] }, { rows: [row({ visible: false, position: 4, preference_version: 2 })] }, {}];
   const repository = new ProjectBucketRepository({ query: async (statement) => {
     statements.push(statement);
     return responses.shift() ?? {};
@@ -62,10 +62,25 @@ test("visibility updates only the preference row and preserves bucket-backed wor
   });
   assert.equal(saved.visible, false);
   assert.equal(saved.position, 4);
-  assert.equal(saved.version, 2);
+  assert.equal(saved.preferenceVersion, 2);
   const mutation = statements.find((statement) => statement.includes("project_bucket_preferences AS preference"));
   assert.match(mutation ?? "", /ON CONFLICT/);
   assert.doesNotMatch(mutation ?? "", /DELETE|assignments|work_items/i);
+});
+
+test("an unsaved default preference uses a null version for its first write", async () => {
+  const responses = [
+    {}, {}, { rows: [row()] }, {},
+    {}, {}, { rows: [{ bucket_id: bucketId }] }, { rows: [row({ visible: false, preference_version: 1 })] }, {},
+  ];
+  const repository = new ProjectBucketRepository({ query: async () => responses.shift() ?? {} });
+  const [bucket] = await repository.listForOwner({ organizationId, ownerMembershipId });
+  assert.equal(bucket?.preferenceVersion, null);
+  const saved = await repository.savePreference({
+    organizationId, ownerMembershipId, bucketId, visible: false, position: 0,
+    expectedVersion: bucket?.preferenceVersion ?? null,
+  });
+  assert.equal(saved.preferenceVersion, 1);
 });
 
 test("stale, missing, cross-tenant, and non-owner preference writes fail closed", async () => {
